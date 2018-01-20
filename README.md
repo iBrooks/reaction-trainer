@@ -1,24 +1,15 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+An app to improve reactions
 
-Things you may want to cover:
+Features a moving-targets clicking minigame that will track users click alacrity
 
-* Ruby version
+will store user data to provide stat tracking for improvement over time
 
-* System dependencies
+Backend: rails 5.1
+Front end: React 15.4.2
+Transpiler: Wepbacker 2.11.0
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+After cloning:
+bundle install
+npm install
