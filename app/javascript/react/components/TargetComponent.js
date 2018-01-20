@@ -1,14 +1,12 @@
 import React from 'react'
 
 const Target = (props) => {
+  let cssString = "" + props.location
   return(
-    <div>
-      <h3>{props.name}</h3>
-      <p>
-        {props.description}
-      </p>
+    <div className={props.location}>
+      <button onClick={props.onClick}>CATCH ME</button>
     </div>
   )
 }
 
-export default Cereal
+export default Target
