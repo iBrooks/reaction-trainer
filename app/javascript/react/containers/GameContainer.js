@@ -10,22 +10,25 @@ class Game extends Component{
       times: [],
       gameLength: 10,
       count: 0,
-      gameState: 'ready'
+      gameState: 'ready',
+      t: ''
     }
     this.onClick = this.onClick.bind(this)
     this.timer = this.timer.bind(this)
   }
 
+
+
   timer(action=nil){
+    console.log(mSec)
     let mSec, t
     let times = []
 
     if(action == 'next') {
-      clearTimeout(t)
-      console.log(mSec)
+      clearInterval(t)
       times.push(mSec)
       mSec = 0
-      t = setTimeout(()=>{ mSec++ }, 1)
+      t = setInterval(()=>{ mSec = mSec + 1 }, 1)
     } else if(action == 'stop') {
       clearTimeout(t)
       times.push(mSec)
@@ -38,42 +41,50 @@ class Game extends Component{
     } else {
       this.setState({ gameState: 'running', times: [] })
       mSec = 0
-      t = setTimeout((mSec)=>{ mSec++ }, 100)
+      // t = setInterval(()=>{ mSec = mSec + 1 }, 1)
     }
   }
 
   onClick(event){
     event.preventDefault()
-
+    clearInterval(this.state.t)
+    console.log(mSec)
+    let mSec = 0
     let newTargetLocation
     if (this.state.location == 'left') {
       newTargetLocation = 'right'
     } else {
       newTargetLocation = 'left'
     }
+    this.setState({
+      t: setInterval(()=>{
+        mSec++
 
-    if (this.state.count == this.state.gameLength) {
-      this.timer('stop')
-    } else {
-      this.timer('next')
-      this.setState({
-        location: newTargetLocation,
-        count: this.state.count + 1,
-        gameState: 'running'
-      })
-    }
+      }, 100),
+      location: newTargetLocation
+    })
+    // if (this.state.count == this.state.gameLength) {
+    //   this.timer('stop')
+    // } else {
+    //   this.timer('next')
+    //   this.setState({
+    //     location: newTargetLocation,
+    //     count: this.state.count + 1,
+    //     gameState: 'running'
+    //   })
+    // }
 
   }
 
   render(){
-    if (this.state.gameState == 'ready'){
-      let onClick = this.timer
-      return(
-        <div>
-          <h1 onClick={onClick}>Start!</h1>
-        </div>
-      )
-    } else if (this.state.gameState == 'running') {
+    // if (this.state.gameState == 'ready'){
+    //   let onClick = this.timer
+    //   return(
+    //     <div>
+    //       <h1 onClick={onClick}>Start!</h1>
+    //     </div>
+    //   )
+    // } else if (this.state.gameState == 'running') {
       let onButtonClick = this.onClick
       return(
         <div className='container'>
@@ -83,15 +94,15 @@ class Game extends Component{
           />
         </div>
       )
-    } else {
-      return(
-        <div>
-          <h1>Complete!</h1>
-          <h4>Raw times:</h4>
-          <p>{this.state.times.join}</p>
-        </div>
-      )
-    }
+    // } else {
+    //   return(
+    //     <div>
+    //       <h1>Complete!</h1>
+    //       <h4>Raw times:</h4>
+    //       <p>{this.state.times.join}</p>
+    //     </div>
+    //   )
+    // }
   }
 }
 
