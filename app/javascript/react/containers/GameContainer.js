@@ -62,18 +62,19 @@ class Game extends Component{
     this.saveGame()
   }
   saveGame() {
-    let formPayload ={
-      game: {},
+    let formPayload = {
+      game: {
       target_hits: this.state.times
       }
-    fetch('/api/v1/game', {
+    }
+    fetch('/api/v1/games', {
      credentials: 'same-origin',
      method: 'post',
      body: JSON.stringify(formPayload),
      headers: {
        'Content-Type': 'application/json',
-       'X-Requested-With': 'XMLHttpRequest',
-       'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')
+       // 'X-Requested-With': 'XMLHttpRequest',
+       // 'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')
        }
     })
     .then(response => {
