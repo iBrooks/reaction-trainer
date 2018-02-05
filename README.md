@@ -1,7 +1,7 @@
 # README
 [ ![Codeship Status for iBrooks/reaction-trainer](https://app.codeship.com/projects/ed640be0-ecc6-0135-5b98-1aad80ac6db6/status?branch=master)](https://app.codeship.com/projects/270422)
 [ ![Maintainability](https://api.codeclimate.com/v1/badges/e9a92bf3b746b7ddda26/maintainability)](https://codeclimate.com/github/iBrooks/reaction-trainer/maintainability)
-[ ![Coverage Status](https://coveralls.io/repos/github/ibrooks/reaction-trainer/badge.svg?branch=master)](https://coveralls.io/github/ibrooks/reaction-trainer?branch=master)
+[ ![Coverage Status](https://coveralls.io/repos/github/iBrooks/reaction-trainer/badge.svg?branch=master)](https://coveralls.io/github/iBrooks/reaction-trainer?branch=master)
 
 An app to improve reactions
 
