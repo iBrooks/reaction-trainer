@@ -8,12 +8,12 @@ class Game extends Component{
   constructor(props){
     super(props)
     this.state = {
-      location: 'left',
-      times: [],
-      gameLength: 5,
-      count: 0,
-      gameState: 'ready',
+      location: this.newLocation(),
       update: true,
+      gameLength: 5,
+      gameState: 'ready',
+      times: [],
+      count: 0,
       missCount: 0
     }
     this.onHit = this.onHit.bind(this)
@@ -33,13 +33,9 @@ class Game extends Component{
   }
 
   newLocation(){
-    // planned: from random array of locations
-    let newTargetLocation
-    if (this.state.location == 'left') {
-      newTargetLocation = 'right'
-    } else {
-      newTargetLocation = 'left'
-    }
+    let newX = Math.floor(Math.random() * 10)
+    let newY = Math.floor(Math.random() * 10)
+    let newTargetLocation = 'P' + newX.toString() + newY.toString()
     return newTargetLocation
   }
 
@@ -53,10 +49,12 @@ class Game extends Component{
         location: this.newLocation(),
         update: true
       })
+      console.log(this.state.location)
     }
   }
   onMiss(event){
     event.preventDefault()
+    console.log('Miss!')
     this.setState({
       missCount: this.state.missCount + 1,
       update: false
@@ -106,16 +104,16 @@ class Game extends Component{
     } else if (this.state.gameState == 'running') {
       return(
         <div id='gameContainer' className='container'>
+          <Target
+            location={this.state.location}
+            onHit={this.onHit}
+          />
           <Background
             onMiss={this.onMiss}
           />
           <Timer
             count={this.state.count}
             onTimerStop={this.onTimerStop}
-          />
-          <Target
-            location={this.state.location}
-            onHit={this.onHit}
           />
         </div>
       )
