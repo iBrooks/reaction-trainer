@@ -1,21 +1,124 @@
-.left {
-  grid-area: left;
-}
-.right {
-  grid-area: right;
-}
-.top {
-  grid-area: top;
-}
-.bottom {
-  grid-area: bottom;
-}
-
 .container {
-  grid-template-columns: 50px 50px 50px;
-  grid-template-rows: 50px 50px 50px;
+  border-width: 1px;
+  border-style: dashed;
+  border-color: black;
+  position: fixed;
+  width: 500px;
+  height: 500px;
+  top: 50px;
+  left:50px;
+  right:50px;
+  grid-template-columns: 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
+  grid-template-rows: 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
   grid-template-areas:
-    ". top ."
-    "left . right"
-    ". bottom .";
+  "09 19 29 39 49 59 69 79 89 99"
+  "08 18 28 38 48 58 68 78 88 98"
+  "07 17 27 37 47 57 67 77 87 97"
+  "06 16 26 36 46 56 66 76 86 96"
+  "05 15 25 35 45 55 65 75 85 95"
+  "04 14 24 34 44 54 64 74 84 94"
+  "03 13 23 33 43 53 63 73 83 93"
+  "02 12 22 32 42 52 62 72 82 92"
+  "01 11 21 31 41 51 61 71 81 91"
+  "00 10 20 30 40 50 60 70 80 90";
 }
+.P09{ grid-area:09; }
+.P19{ grid-area:19; }
+.P29{ grid-area:29; }
+.P39{ grid-area:39; }
+.P49{ grid-area:49; }
+.P59{ grid-area:59; }
+.P69{ grid-area:69; }
+.P79{ grid-area:79; }
+.P89{ grid-area:89; }
+.P99{ grid-area:99; }
+.P08{ grid-area:08; }
+.P18{ grid-area:18; }
+.P28{ grid-area:28; }
+.P38{ grid-area:38; }
+.P48{ grid-area:48; }
+.P58{ grid-area:58; }
+.P68{ grid-area:68; }
+.P78{ grid-area:78; }
+.P88{ grid-area:88; }
+.P98{ grid-area:98; }
+.P07{ grid-area:07; }
+.P17{ grid-area:17; }
+.P27{ grid-area:27; }
+.P37{ grid-area:37; }
+.P47{ grid-area:47; }
+.P57{ grid-area:57; }
+.P67{ grid-area:67; }
+.P77{ grid-area:77; }
+.P87{ grid-area:87; }
+.P97{ grid-area:97; }
+.P06{ grid-area:06; }
+.P16{ grid-area:16; }
+.P26{ grid-area:26; }
+.P36{ grid-area:36; }
+.P46{ grid-area:46; }
+.P56{ grid-area:56; }
+.P66{ grid-area:66; }
+.P76{ grid-area:76; }
+.P86{ grid-area:86; }
+.P96{ grid-area:96; }
+.P05{ grid-area:05; }
+.P15{ grid-area:15; }
+.P25{ grid-area:25; }
+.P35{ grid-area:35; }
+.P45{ grid-area:45; }
+.P55{ grid-area:55; }
+.P65{ grid-area:65; }
+.P75{ grid-area:75; }
+.P85{ grid-area:85; }
+.P95{ grid-area:95; }
+.P04{ grid-area:04; }
+.P14{ grid-area:14; }
+.P24{ grid-area:24; }
+.P34{ grid-area:34; }
+.P44{ grid-area:44; }
+.P54{ grid-area:54; }
+.P64{ grid-area:64; }
+.P74{ grid-area:74; }
+.P84{ grid-area:84; }
+.P94{ grid-area:94; }
+.P03{ grid-area:03; }
+.P13{ grid-area:13; }
+.P23{ grid-area:23; }
+.P33{ grid-area:33; }
+.P43{ grid-area:43; }
+.P53{ grid-area:53; }
+.P63{ grid-area:63; }
+.P73{ grid-area:73; }
+.P83{ grid-area:83; }
+.P93{ grid-area:93; }
+.P02{ grid-area:02; }
+.P12{ grid-area:12; }
+.P22{ grid-area:22; }
+.P32{ grid-area:32; }
+.P42{ grid-area:42; }
+.P52{ grid-area:52; }
+.P62{ grid-area:62; }
+.P72{ grid-area:72; }
+.P82{ grid-area:82; }
+.P92{ grid-area:92; }
+.P01{ grid-area:01; }
+.P11{ grid-area:11; }
+.P21{ grid-area:21; }
+.P31{ grid-area:31; }
+.P41{ grid-area:41; }
+.P51{ grid-area:51; }
+.P61{ grid-area:61; }
+.P71{ grid-area:71; }
+.P81{ grid-area:81; }
+.P91{ grid-area:91; }
+.P00{ grid-area:00; }
+.P10{ grid-area:10; }
+.P20{ grid-area:20; }
+.P30{ grid-area:30; }
+.P40{ grid-area:40; }
+.P50{ grid-area:50; }
+.P60{ grid-area:60; }
+.P70{ grid-area:70; }
+.P80{ grid-area:80; }
+.P90{ grid-area:90; }

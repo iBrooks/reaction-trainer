@@ -1,0 +1,14 @@
+#gameContainer {
+
+}
+
+#gameBackground {
+background-color: #cecece;
+position: fixed;
+width: 500px;
+height: 500px;
+top: 50px;
+left: 50px;
+right: 50px;
+z-index: -1;
+}
