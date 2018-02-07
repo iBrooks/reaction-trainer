@@ -17,11 +17,6 @@ class GameSelection extends Component {
     this.startGame = this.startGame.bind(this)
 
   }
-  shouldComponentUpdate(nextProps, nextState){
-    console.log('re-rendering')
-    console.log(this.state.gameMode)
-    return true
-  }
 
   chooseMode(mode){
     let description
@@ -82,7 +77,7 @@ class GameSelection extends Component {
       chooseChallenge={chooseChallenge}
       chooseBaseline={chooseBaseline}
       chooseEndurance={chooseEndurance}
-      mode={this.state.gameMode}
+      mode={this.state.mode}
       description={this.state.description}
       startGame={this.startGame}
     />
