@@ -53,7 +53,8 @@ class BaselineGame extends Component{
       console.log(this.state.location)
     }
   }
-  onMiss(){
+  onMiss(event){
+    event.preventDefault()
     console.log('Miss!')
     this.setState({
       missCount: this.state.missCount + 1,
@@ -109,21 +110,21 @@ class BaselineGame extends Component{
             onTimerStop={this.onTimerStop}
           />
           <GameHud
-            hits={this.state.count}
-            hitCount={this.state.count}
-            misses={this.state.missCount}
-            currentCount={this.state.count}
             totalTargets={this.state.gameLength}
+            count={this.state.count}
+            hit={this.state.count}
             missed={'N/A'}
             gameMode={'Baseline'}
             elapsed={'TBD'}
             pause={null}
-            onMiss={this.onMiss}
           />
           <div id='gridContainer' className='container'>
             <Target
               location={this.state.location}
               onHit={this.onHit}
+            />
+            <Background
+              onMiss={this.onMiss}
             />
           </div>
       </div>
@@ -141,3 +142,8 @@ class BaselineGame extends Component{
 }
 
 export default BaselineGame
+
+
+{/* <div className='small-1 columns'>
+  <FontAwesomeIcon icon={faCrosshairs} size="2x" /> {Math.round(((this.state.hitCount/this.state.count) * 100)*10)/10}
+</div> */}

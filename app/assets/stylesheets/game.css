@@ -1,7 +1,7 @@
 #gridContainer {
 position: absolute;
 bottom: 0;
-z-index: 0;
+z-index: -1;
 }
 #gameContainer {
 position: fixed;
@@ -11,11 +11,11 @@ margin: auto;
 left: 0;
 right: 0;
 }
-#gameHud{
-  width: 700px;
+#gameHud {
+  width: 500px;
   height: 45px;
   position: absolute;
-  left: -100px;
+  top: 0px;
 }
 
 #gameBackground {
@@ -23,7 +23,7 @@ background-color: #cecece;
 position: absolute;
 width: 500px;
 height: 500px;
-bottom: 0;
+bottom: 0px;
 z-index: 0;
 }
 
