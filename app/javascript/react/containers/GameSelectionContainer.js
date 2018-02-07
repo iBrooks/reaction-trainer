@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import GameContainer from './GameContainer'
+import BaselineGameContainer from './BaselineGameContainer'
 import StartMenu from '../components/StartMenuComponent'
 
 class GameSelection extends Component {
@@ -9,8 +9,11 @@ class GameSelection extends Component {
       targetCount: 10,
       gameMode: 'Baseline',
       description: '30 static targets. How fast can you click through them all?',
+      ready: false
     }
     this.chooseMode = this.chooseMode.bind(this)
+    this.startGame = this.startGame.bind(this)
+
   }
   shouldComponentUpdate(nextProps, nextState){
     console.log('re-rendering')
@@ -30,6 +33,9 @@ class GameSelection extends Component {
       gameMode: mode,
       description: description
     })
+  }
+  startGame(){
+    this.setState({ ready: true })
   }
 
   prepGameContainer(){
@@ -52,16 +58,31 @@ class GameSelection extends Component {
       event.preventDefault()
       this.chooseMode('Endurance')
     }
+    if (this.state.ready) {
+      if (this.state.mode == 'Baseline') {
+        return(
+          null
+        )
+      } else if (this.state.mode == 'Endurance') {
+        return(
+          null
+        )
+      } else {
+        return(
+          null
+        )
+      }
+    } else {
     return(
-<StartMenu
-  chooseChallenge={chooseChallenge}
-  chooseBaseline={chooseBaseline}
-  chooseEndurance={chooseEndurance}
-  mode={this.state.gameMode}
-  description={this.state.description}
-  startGame={this.startGame}
-/>
-    )
+    <StartMenu
+      chooseChallenge={chooseChallenge}
+      chooseBaseline={chooseBaseline}
+      chooseEndurance={chooseEndurance}
+      mode={this.state.gameMode}
+      description={this.state.description}
+      startGame={this.startGame}
+    />
+  )}
   }
 }
 

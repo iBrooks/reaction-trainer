@@ -4,7 +4,7 @@ import Target from '../components/TargetComponent'
 import Timer from '../components/TimerComponent'
 import Background from '../components/BackgroundComponent'
 
-class Game extends Component{
+class BaselineGame extends Component{
   constructor(props){
     super(props)
     this.state = {
@@ -129,4 +129,4 @@ class Game extends Component{
   }
 }
 
-export default Game
+export default BaselineGame
