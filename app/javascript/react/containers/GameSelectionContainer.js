@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import BaselineGameContainer from './BaselineGameContainer'
+import BaselineGame from './GameModeContainers/BaselineGameContainer'
+import EnduranceGamer from './GameModeContainers/EnduranceGameContainer'
+import ChallengeGame from './GameModeContainers/ChallengeGameContainer'
 import StartMenu from '../components/StartMenuComponent'
 
 class GameSelection extends Component {
@@ -61,15 +63,15 @@ class GameSelection extends Component {
     if (this.state.ready) {
       if (this.state.mode == 'Baseline') {
         return(
-          null
+          <BaselineGame />
         )
       } else if (this.state.mode == 'Endurance') {
         return(
-          null
+          <EnduranceGame />
         )
       } else {
         return(
-          null
+          <ChallengeGame />
         )
       }
     } else {

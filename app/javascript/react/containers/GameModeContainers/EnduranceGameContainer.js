@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Router, browserHistory, Route, IndexRoute } from 'react-router';
-import Target from '../components/TargetComponent'
-import Timer from '../components/TimerComponent'
-import Background from '../components/BackgroundComponent'
+import Target from '../../components/TargetComponent'
+import Timer from '../../components/TimerComponent'
+import Background from '../../components/BackgroundComponent'
 
-class BaselineGame extends Component{
+class EnduranceGame extends Component{
   constructor(props){
     super(props)
     this.state = {
@@ -129,4 +129,4 @@ class BaselineGame extends Component{
   }
 }
 
-export default BaselineGame
+export default EnduranceGame
