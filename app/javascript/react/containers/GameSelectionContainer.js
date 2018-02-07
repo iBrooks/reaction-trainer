@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import BaselineGame from './GameModeContainers/BaselineGameContainer'
-import EnduranceGamer from './GameModeContainers/EnduranceGameContainer'
+import EnduranceGame from './GameModeContainers/EnduranceGameContainer'
 import ChallengeGame from './GameModeContainers/ChallengeGameContainer'
 import StartMenu from '../components/StartMenuComponent'
 
@@ -9,7 +9,7 @@ class GameSelection extends Component {
     super(props)
     this.state = {
       targetCount: 10,
-      gameMode: 'Baseline',
+      mode: 'Baseline',
       description: '30 static targets. How fast can you click through them all?',
       ready: false
     }
@@ -19,6 +19,7 @@ class GameSelection extends Component {
   }
   shouldComponentUpdate(nextProps, nextState){
     console.log('re-rendering')
+    console.log(this.state.gameMode)
     return true
   }
 
@@ -32,11 +33,12 @@ class GameSelection extends Component {
       description = '5 levels of increasing difficulty. Can you beat them all?'
     }
     this.setState({
-      gameMode: mode,
+      mode: mode,
       description: description
     })
   }
-  startGame(){
+  startGame(event){
+    event.preventDefault()
     this.setState({ ready: true })
   }
 

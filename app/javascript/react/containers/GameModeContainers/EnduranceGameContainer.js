@@ -9,12 +9,12 @@ class EnduranceGame extends Component{
     super(props)
     this.state = {
       location: this.newLocation(),
-      update: true,
-      gameLength: 5,
+      update: false,
       gameState: 'ready',
       times: [],
       count: 0,
-      missCount: 0
+      missCount: 0,
+      hitCount: 0
     }
     this.onHit = this.onHit.bind(this)
     this.onMiss = this.onMiss.bind(this)
@@ -22,12 +22,25 @@ class EnduranceGame extends Component{
     this.newLocation = this.newLocation.bind(this)
     this.startGame = this.startGame.bind(this)
     this.endGame = this.endGame.bind(this)
+    this.expireTarget = this.expireTarget.bind(this)
+    this.expire = null
   }
 
   shouldComponentUpdate(nextProps, nextState){
     return nextState.update
   }
-
+  expireTarget(){
+    console.log('target expired')
+    this.setState({
+      count: this.state.count + 1,
+      location: this.newLocation(),
+      update: true
+    })
+  }
+  componentDidUpdate(){
+    clearTimeout(this.expire)
+    this.expire = setTimeout(()=>{ this.expireTarget()}, 1000)
+  }
   onTimerStop(mSec){
     this.state.times.push(mSec)
   }
@@ -41,17 +54,14 @@ class EnduranceGame extends Component{
 
   onHit(event){
     event.preventDefault()
-    if (this.state.count == this.state.gameLength){
-      this.endGame()
-    } else {
-      this.setState({
-        count: this.state.count + 1,
-        location: this.newLocation(),
-        update: true
-      })
-      console.log(this.state.location)
-    }
+    this.setState({
+      count: this.state.count + 1,
+      hitCount: this.state.hitCount + 1,
+      location: this.newLocation(),
+      update: true
+    })
   }
+
   onMiss(event){
     event.preventDefault()
     console.log('Miss!')

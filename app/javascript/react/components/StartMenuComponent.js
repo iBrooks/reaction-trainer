@@ -35,7 +35,7 @@ const StartMenu = (props) => {
         </div>
       </div>
       <div className='row'>
-        <a href="#" onClick={props.startGame} className="button success">Start {props.mode}</a>
+        <a href="" onClick={props.startGame} className="button success">Start {props.mode}</a>
       </div>
     </div>
   )
