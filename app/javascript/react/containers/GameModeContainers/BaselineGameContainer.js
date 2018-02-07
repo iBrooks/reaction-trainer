@@ -3,6 +3,7 @@ import { Router, browserHistory, Route, IndexRoute } from 'react-router';
 import Target from '../../components/TargetComponent'
 import Timer from '../../components/TimerComponent'
 import Background from '../../components/BackgroundComponent'
+import GameHud from '../../components/GameHudComponent'
 
 class BaselineGame extends Component{
   constructor(props){
@@ -103,19 +104,33 @@ class BaselineGame extends Component{
       )
     } else if (this.state.gameState == 'running') {
       return(
-        <div id='gameContainer' className='container'>
-          <Target
-            location={this.state.location}
-            onHit={this.onHit}
-          />
-          <Background
-            onMiss={this.onMiss}
-          />
+        <div id='gameContainer'>
           <Timer
             count={this.state.count}
             onTimerStop={this.onTimerStop}
           />
-        </div>
+          <GameHud
+            hits={this.state.count}
+            misses={this.state.missCount}
+            currentCount={this.state.count}
+            totalTargets={this.state.gameLength}
+            missed={'N/A'}
+            accuracy={(this.state.count/(this.state.count + this.state.missCount)) * 100}
+            percentage={'N/A'}
+            gameMode={'Baseline'}
+            elapsed={'TBD'}
+            pause={null}
+          />
+          <div id='gridContainer' className='container'>
+            <Target
+              location={this.state.location}
+              onHit={this.onHit}
+            />
+            <Background
+              onMiss={this.onMiss}
+            />
+          </div>
+      </div>
       )
     } else {
       return(
