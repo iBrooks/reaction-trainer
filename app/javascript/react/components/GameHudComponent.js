@@ -19,7 +19,9 @@ class GameHud extends Component {
     this.t = null
   }
   componentDidMount(){
-    this.t = setInterval(()=>{this.clock()}, 1000)
+    if (this.props.gameState == 'running'){
+      this.t = setInterval(()=>{this.clock()}, 1000)
+    }
   }
   componentWillUnmount(){
     clearInterval(this.t)

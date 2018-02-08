@@ -129,9 +129,15 @@ class BaselineGame extends Component{
     if (this.state.gameState == 'ready'){
       return(
         <div id='gameContainer'>
-          <div id='startScreenBanner' className='row text-center'>
-            <h2 className='whiteText'>Baseline</h2>
-          </div>
+          <GameHud
+            totalTargets={this.state.gameLength}
+            count={this.state.count}
+            hit={this.state.count}
+            missed={'N/A'}
+            pause={this.state.pause}
+            pauseGame={this.pauseGame}
+            gameState={this.state.gameState}
+          />
           <div id='startScreenBody' className='row'>
             <div id='playButton'>
             <FontAwesomeIcon icon={faPlayCircle} size='8x' onClick={this.startGame}/>
@@ -154,6 +160,7 @@ class BaselineGame extends Component{
             missed={'N/A'}
             pause={this.state.pause}
             pauseGame={this.pauseGame}
+            gameState={this.state.gameState}
           />
           <div id='gridContainer' className='container'>
             <div id='pauseScreen' className={this.state.pauseScreen}>
@@ -183,9 +190,15 @@ class BaselineGame extends Component{
     } else {
       return(
         <div id='gameContainer'>
-          <div id='endScreenBanner' className='row text-center'>
-            <h2 className='whiteText'>Complete!</h2>
-          </div>
+          <GameHud
+            totalTargets={this.state.gameLength}
+            count={this.state.count}
+            hit={this.state.count}
+            missed={'N/A'}
+            pause={this.state.pause}
+            pauseGame={this.pauseGame}
+            gameState={this.state.gameState}
+          />
           <div id='endScreenBody' className='row'>
             <div id='exitButton'>
               <FontAwesomeIcon icon={faTimesCircle} size='4x' onClick={this.props.exitGame}/>
