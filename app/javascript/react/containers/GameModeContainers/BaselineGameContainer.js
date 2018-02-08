@@ -114,8 +114,6 @@ class BaselineGame extends Component{
             count={this.state.count}
             hit={this.state.count}
             missed={'N/A'}
-            gameMode={'Baseline'}
-            elapsed={'TBD'}
             pause={null}
           />
           <div id='gridContainer' className='container'>
