@@ -1,16 +1,30 @@
+#gridContainer {
+position: absolute;
+bottom: 0;
+z-index: -1;
+}
 #gameContainer {
-
+position: fixed;
+width: 500px;
+height: 545px;
+margin: auto;
+left: 0;
+right: 0;
+}
+#gameHud {
+  width: 500px;
+  height: 45px;
+  position: absolute;
+  top: 0px;
 }
 
 #gameBackground {
 background-color: #cecece;
-position: fixed;
+position: absolute;
 width: 500px;
 height: 500px;
-top: 50px;
-left: 50px;
-right: 50px;
-z-index: -1;
+bottom: 0px;
+z-index: 0;
 }
 
 #target {
@@ -19,4 +33,56 @@ z-index: -1;
   background-color: red;
   border-radius: 50%;
   display: grid;
+  z-index: 1;
+}
+#pauseScreen {
+  background-color: yellow;
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  bottom: 0px;
+  z-index: 2;
+}
+#startScreenBanner {
+  background-color: black;
+  position: absolute;
+  width: 500px;
+  height: 45px;
+  top: 0px;
+}
+#endScreenBanner {
+  background-color: black;
+  position: absolute;
+  width: 500px;
+  height: 45px;
+  top: 0px;
+}
+#playButton {
+  position: absolute;
+  top: 188px;
+  left: 188px;
+}
+.whiteText {
+  color: white;
+}
+#startScreenBody {
+  background-color: blue;
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  bottom: 0px;
+}
+#endScreenBody {
+  background-color: green;
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  bottom: 0px;
+  z-index: 2;
+}
+.hide {
+  display: none;
+}
+.show{
+  display: block;
 }

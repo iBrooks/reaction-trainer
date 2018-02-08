@@ -3,6 +3,9 @@ import { Router, browserHistory, Route, IndexRoute } from 'react-router';
 import Target from '../../components/TargetComponent'
 import Timer from '../../components/TimerComponent'
 import Background from '../../components/BackgroundComponent'
+import GameHud from '../../components/GameHudComponent'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import { faPlayCircle, faTimesCircle, faRedoAlt } from '@fortawesome/fontawesome-free-solid'
 
 class BaselineGame extends Component{
   constructor(props){
@@ -14,7 +17,9 @@ class BaselineGame extends Component{
       gameState: 'ready',
       times: [],
       count: 0,
-      missCount: 0
+      missCount: 0,
+      pause: false,
+      pauseScreen: 'hide'
     }
     this.onHit = this.onHit.bind(this)
     this.onMiss = this.onMiss.bind(this)
@@ -22,6 +27,9 @@ class BaselineGame extends Component{
     this.newLocation = this.newLocation.bind(this)
     this.startGame = this.startGame.bind(this)
     this.endGame = this.endGame.bind(this)
+    this.pauseGame = this.pauseGame.bind(this)
+    this.resumeGame = this.resumeGame.bind(this)
+    this.restartGame = this.restartGame.bind(this)
   }
 
   shouldComponentUpdate(nextProps, nextState){
@@ -64,9 +72,32 @@ class BaselineGame extends Component{
   startGame(){
     this.setState({gameState: 'running', update: true})
   }
-
+  pauseGame(){
+    this.setState({
+      pause: true,
+      pauseScreen: 'show',
+      update: true
+    })
+  }
+  resumeGame(){
+    this.setState({
+      pause: false,
+      pauseScreen: 'hide',
+      update: true
+    })
+  }
+  restartGame(){
+    this.setState({
+      gameState: 'ready',
+      update: true,
+      count: 0,
+      pauseScreen: 'hide',
+      pause: false,
+      location: this.newLocation()
+    })
+  }
   endGame(){
-    this.setState({gameState: 'ended', update: true})
+    this.setState({gameState: 'ended', update: true, count: 0})
     this.saveGame()
   }
   saveGame() {
@@ -97,32 +128,72 @@ class BaselineGame extends Component{
   render(){
     if (this.state.gameState == 'ready'){
       return(
-        <div>
-          <h1 onClick={this.startGame}>Start!</h1>
+        <div id='gameContainer'>
+          <div id='startScreenBanner' className='row text-center'>
+            <h2 className='whiteText'>Baseline</h2>
+          </div>
+          <div id='startScreenBody' className='row'>
+            <div id='playButton'>
+            <FontAwesomeIcon icon={faPlayCircle} size='8x' onClick={this.startGame}/>
+          </div>
+          </div>
         </div>
       )
     } else if (this.state.gameState == 'running') {
       return(
-        <div id='gameContainer' className='container'>
-          <Target
-            location={this.state.location}
-            onHit={this.onHit}
-          />
-          <Background
-            onMiss={this.onMiss}
-          />
+        <div id='gameContainer'>
           <Timer
             count={this.state.count}
             onTimerStop={this.onTimerStop}
+            pause = {this.state.pause}
           />
-        </div>
+          <GameHud
+            totalTargets={this.state.gameLength}
+            count={this.state.count}
+            hit={this.state.count}
+            missed={'N/A'}
+            pause={this.state.pause}
+            pauseGame={this.pauseGame}
+          />
+          <div id='gridContainer' className='container'>
+            <div id='pauseScreen' className={this.state.pauseScreen}>
+              <div className='row'>
+                <div className='small-2 columns'>
+                  <FontAwesomeIcon icon={faRedoAlt} size='4x' onClick={this.restartGame}/>
+                </div>
+                <div className='small-8 columns'>
+                  <FontAwesomeIcon icon={faPlayCircle} size='8x' onClick={this.resumeGame}/>
+                </div>
+                <div className='small-2 columns'>
+                  <FontAwesomeIcon icon={faTimesCircle} size='4x' onClick={this.props.exitGame}/>
+                </div>
+              </div>
+
+            </div>
+            <Target
+              location={this.state.location}
+              onHit={this.onHit}
+            />
+            <Background
+              onMiss={this.onMiss}
+            />
+          </div>
+      </div>
       )
     } else {
       return(
-        <div>
-          <h1>Complete!</h1>
-          <h4>Raw times:</h4>
-          <p>{this.state.times.join()}</p>
+        <div id='gameContainer'>
+          <div id='endScreenBanner' className='row text-center'>
+            <h2 className='whiteText'>Complete!</h2>
+          </div>
+          <div id='endScreenBody' className='row'>
+            <div id='exitButton'>
+              <FontAwesomeIcon icon={faTimesCircle} size='4x' onClick={this.props.exitGame}/>
+            </div>
+            <div id='playButton'>
+            <FontAwesomeIcon icon={faRedoAlt} size='8x' onClick={this.startGame}/>
+          </div>
+          </div>
         </div>
       )
     }
@@ -130,3 +201,8 @@ class BaselineGame extends Component{
 }
 
 export default BaselineGame
+
+
+{/* <div className='small-1 columns'>
+  <FontAwesomeIcon icon={faCrosshairs} size="2x" /> {Math.round(((this.state.hitCount/this.state.count) * 100)*10)/10}
+</div> */}
