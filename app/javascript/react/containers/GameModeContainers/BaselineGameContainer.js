@@ -15,7 +15,9 @@ class BaselineGame extends Component{
       gameState: 'ready',
       times: [],
       count: 0,
-      missCount: 0
+      missCount: 0,
+      pause: false,
+      pauseScreen: 'hide'
     }
     this.onHit = this.onHit.bind(this)
     this.onMiss = this.onMiss.bind(this)
@@ -23,6 +25,7 @@ class BaselineGame extends Component{
     this.newLocation = this.newLocation.bind(this)
     this.startGame = this.startGame.bind(this)
     this.endGame = this.endGame.bind(this)
+    this.pauseGame = this.pauseGame.bind(this)
   }
 
   shouldComponentUpdate(nextProps, nextState){
@@ -30,6 +33,7 @@ class BaselineGame extends Component{
   }
 
   onTimerStop(mSec){
+    debugger
     this.state.times.push(mSec)
   }
 
@@ -65,7 +69,13 @@ class BaselineGame extends Component{
   startGame(){
     this.setState({gameState: 'running', update: true})
   }
-
+  pauseGame(){
+    this.setState({
+      pause: true,
+      pauseScreen: 'show',
+      update: true
+    })
+  }
   endGame(){
     this.setState({gameState: 'ended', update: true})
     this.saveGame()
@@ -108,15 +118,17 @@ class BaselineGame extends Component{
           <Timer
             count={this.state.count}
             onTimerStop={this.onTimerStop}
+            pause = {this.state.pause}
           />
           <GameHud
             totalTargets={this.state.gameLength}
             count={this.state.count}
             hit={this.state.count}
             missed={'N/A'}
-            pause={null}
+            pauseGame={this.pauseGame}
           />
           <div id='gridContainer' className='container'>
+            <div id='pauseScreen' className={this.state.pauseScreen}></div>
             <Target
               location={this.state.location}
               onHit={this.onHit}

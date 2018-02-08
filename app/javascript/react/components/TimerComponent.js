@@ -4,31 +4,29 @@ class Timer extends Component {
   constructor(props){
     super(props)
     this.state = {
-      mSec: 0
     }
     this.t = null
+    this.mSec = null
   }
   componentDidMount(){
     this.t = setInterval(()=>{
-      this.setState({ mSec: this.state.mSec + 1 })
+    this.mSec = this.mSec + 1
     }, 1)
   }
   componentWillUnmount(){
     clearInterval(this.t)
   }
   shouldComponentUpdate(nextProps, nextState){
-    return nextProps.count !== this.props.count
+    return !nextProps.pause
   }
   componentWillUpdate(){
     clearInterval(this.t)
-    this.props.onTimerStop(this.state.mSec)
+    this.props.onTimerStop(this.mSec)
   }
-  componentDidUpdate(nextProps, nextState){
-    this.setState({
-      mSec: 0
-    })
+  componentDidUpdate(prevProps, prevState){
+    this.mSec = 0
     this.t = setInterval(()=>{
-      this.setState({ mSec: this.state.mSec + 1 })
+       this.mSec = this.mSec + 1
     }, 1)
   }
   render(){

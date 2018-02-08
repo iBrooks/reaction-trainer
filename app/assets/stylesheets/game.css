@@ -35,3 +35,17 @@ z-index: 0;
   display: grid;
   z-index: 1;
 }
+#pauseScreen {
+  background-color: blue;
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  bottom: 0px;
+  z-index: 2;
+}
+.hide {
+  display: none;
+}
+.show{
+  display: block;
+}

@@ -11,10 +11,11 @@ class GameHud extends Component {
       seconds: 0,
       minutes: 0,
       hours: 0,
-      time: '00:00'
+      time: '00:00',
     }
     this.clock = this.clock.bind(this)
     this.targetPercentage = this.targetPercentage.bind(this)
+    this.pause = this.pause.bind(this)
     this.t = null
   }
   componentDidMount(){
@@ -22,6 +23,12 @@ class GameHud extends Component {
   }
   componentWillUnmount(){
     clearInterval(this.t)
+  }
+  componentWillUpdate(nextProps, nextState){
+    // console.log(nextState.paused)
+    // if (!nextState.paused) {
+    //   this.t = setInterval(()=>{this.clock()}, 1000)
+    // }
   }
   clock(){
     let secondsString, minutesString, time
@@ -67,6 +74,10 @@ class GameHud extends Component {
     }
     return(percentage)
   }
+  pause(){
+    clearInterval(this.t)
+    this.props.pauseGame()
+  }
   render() {
     return(
         <div className='row' id='gameHud'>
@@ -85,7 +96,7 @@ class GameHud extends Component {
             <FontAwesomeIcon icon={faClock} />{this.state.time}
           </div>
           <div className='small-2 columns'>
-            <FontAwesomeIcon icon={faPauseCircle} size="2x" />
+            <FontAwesomeIcon icon={faPauseCircle} size="2x" onClick={this.pause}/>
           </div>
         </div>
     )
