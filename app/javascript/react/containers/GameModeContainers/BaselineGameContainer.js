@@ -29,6 +29,7 @@ class BaselineGame extends Component{
     this.endGame = this.endGame.bind(this)
     this.pauseGame = this.pauseGame.bind(this)
     this.resumeGame = this.resumeGame.bind(this)
+    this.restartGame = this.restartGame.bind(this)
   }
 
   shouldComponentUpdate(nextProps, nextState){
@@ -83,6 +84,16 @@ class BaselineGame extends Component{
       pause: false,
       pauseScreen: 'hide',
       update: true
+    })
+  }
+  restartGame(){
+    this.setState({
+      gameState: 'ready',
+      update: true,
+      count: 0,
+      pauseScreen: 'hide',
+      pause: false,
+      location: this.newLocation()
     })
   }
   endGame(){
@@ -148,13 +159,13 @@ class BaselineGame extends Component{
             <div id='pauseScreen' className={this.state.pauseScreen}>
               <div className='row'>
                 <div className='small-2 columns'>
-                  <FontAwesomeIcon icon={faRedoAlt} size='4x' />
+                  <FontAwesomeIcon icon={faRedoAlt} size='4x' onClick={this.restartGame}/>
                 </div>
                 <div className='small-8 columns'>
                   <FontAwesomeIcon icon={faPlayCircle} size='8x' onClick={this.resumeGame}/>
                 </div>
                 <div className='small-2 columns'>
-                  <FontAwesomeIcon icon={faTimesCircle} size='4x' />
+                  <FontAwesomeIcon icon={faTimesCircle} size='4x' onClick={this.props.exitGame}/>
                 </div>
               </div>
 
@@ -176,6 +187,9 @@ class BaselineGame extends Component{
             <h2 className='whiteText'>Complete!</h2>
           </div>
           <div id='endScreenBody' className='row'>
+            <div id='exitButton'>
+              <FontAwesomeIcon icon={faTimesCircle} size='4x' onClick={this.props.exitGame}/>
+            </div>
             <div id='playButton'>
             <FontAwesomeIcon icon={faRedoAlt} size='8x' onClick={this.startGame}/>
           </div>

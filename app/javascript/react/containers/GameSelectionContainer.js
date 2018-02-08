@@ -15,6 +15,7 @@ class GameSelection extends Component {
     }
     this.chooseMode = this.chooseMode.bind(this)
     this.startGame = this.startGame.bind(this)
+    this.exitGame = this.exitGame.bind(this)
 
   }
 
@@ -36,7 +37,8 @@ class GameSelection extends Component {
     event.preventDefault()
     this.setState({ ready: true })
   }
-
+  exitGame(){
+    this.setState({ ready: false })
   }
   render(){
     let chooseChallenge = (event) => {
@@ -54,28 +56,37 @@ class GameSelection extends Component {
     if (this.state.ready) {
       if (this.state.mode == 'Baseline') {
         return(
-          <BaselineGame />
+          <BaselineGame
+          exitGame={this.exitGame}
+        />
         )
       } else if (this.state.mode == 'Endurance') {
         return(
-          <EnduranceGame />
+          <EnduranceGame
+          exitGame={this.exitGame}
+        />
         )
       } else {
         return(
-          <ChallengeGame />
+          <ChallengeGame
+          exitGame={this.exitGame}
+        />
         )
       }
     } else {
-    return(
-    <StartMenu
-      chooseChallenge={chooseChallenge}
-      chooseBaseline={chooseBaseline}
-      chooseEndurance={chooseEndurance}
-      mode={this.state.mode}
-      description={this.state.description}
-      startGame={this.startGame}
-    />
-  )}
+      return(
+        <div id='gameContainer'>
+          <StartMenu
+            chooseChallenge={chooseChallenge}
+            chooseBaseline={chooseBaseline}
+            chooseEndurance={chooseEndurance}
+            mode={this.state.mode}
+            description={this.state.description}
+            startGame={this.startGame}
+          />
+        </div>
+      )
+    }
   }
 }
 
