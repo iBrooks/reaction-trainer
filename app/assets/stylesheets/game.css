@@ -37,6 +37,7 @@
 }
 #pauseScreen {
   background-color: #C1CAD6;
+  color: #3D5A80;
   position: absolute;
   width: 500px;
   height: 500px;
@@ -64,13 +65,16 @@
 }
 #startScreenBody {
   background-color: #C1CAD6;
+  color: #3D5A80;
   position: absolute;
   width: 500px;
   height: 500px;
   bottom: 0px;
+  z-index: 2;
 }
 #endScreenBody {
   background-color: #C1CAD6;
+  color: #3D5A80;
   position: absolute;
   width: 500px;
   height: 500px;

@@ -12,23 +12,33 @@ class GameHud extends Component {
       minutes: 0,
       hours: 0,
       time: '00:00',
+      pauseButtonClass: 'hide'
     }
     this.clock = this.clock.bind(this)
     this.targetPercentage = this.targetPercentage.bind(this)
     this.pause = this.pause.bind(this)
     this.t = null
   }
-  componentDidMount(){
-    if (this.props.gameState == 'running'){
-      this.t = setInterval(()=>{this.clock()}, 1000)
-    }
-  }
   componentWillUnmount(){
     clearInterval(this.t)
   }
-  componentWillUpdate(nextProps, nextState){
-    if(this.props.pause == true && nextProps.pause == false){
+  componentWillReceiveProps(nextProps){
+    if(this.props.pause == true && nextProps.pause == false && nextProps.gameState == 'running'){
       this.t = setInterval(()=>{this.clock()}, 1000)
+      this.setState({ pauseButtonClass: 'show'})
+    } else if (this.props.gameState == 'ready' && nextProps.gameState == 'running'){
+      this.t = setInterval(()=>{this.clock()}, 1000)
+      this.setState({pauseButtonClass: 'show'})
+    } else if (this.props.gameState == 'running' && nextProps.gameState == 'ended'){
+      clearInterval(this.t)
+      this.setState({pauseButtonClass: 'hide'})
+    } else if ((this.props.gameState == 'ended' || this.props.gameState == 'running') && nextProps.gameState == 'ready'){
+      this.setState({
+        seconds: 0,
+        minutes: 0,
+        hours: 0,
+        time: '00:00',
+      })
     }
   }
   clock(){
@@ -78,6 +88,7 @@ class GameHud extends Component {
   pause(){
     clearInterval(this.t)
     this.props.pauseGame()
+    this.setState({pauseButtonClass: 'hide'})
   }
   render() {
     return(
@@ -97,7 +108,7 @@ class GameHud extends Component {
             <FontAwesomeIcon icon={faClock} />{this.state.time}
           </div>
           <div className='small-2 columns'>
-            <FontAwesomeIcon icon={faPauseCircle} size="2x" onClick={this.pause}/>
+            <FontAwesomeIcon icon={faPauseCircle} size="2x" onClick={this.pause} className={this.state.pauseButtonClass}/>
           </div>
         </div>
     )
