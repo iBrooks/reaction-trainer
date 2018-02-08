@@ -37,12 +37,6 @@ class GameSelection extends Component {
     this.setState({ ready: true })
   }
 
-  prepGameContainer(){
-    return(
-      <GameContainer
-      targetCount={this.state.targetCount}
-    />
-  )
   }
   render(){
     let chooseChallenge = (event) => {

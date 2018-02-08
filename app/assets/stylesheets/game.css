@@ -36,7 +36,44 @@ z-index: 0;
   z-index: 1;
 }
 #pauseScreen {
+  background-color: yellow;
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  bottom: 0px;
+  z-index: 2;
+}
+#startScreenBanner {
+  background-color: black;
+  position: absolute;
+  width: 500px;
+  height: 45px;
+  top: 0px;
+}
+#endScreenBanner {
+  background-color: black;
+  position: absolute;
+  width: 500px;
+  height: 45px;
+  top: 0px;
+}
+#playButton {
+  position: absolute;
+  top: 188px;
+  left: 188px;
+}
+.whiteText {
+  color: white;
+}
+#startScreenBody {
   background-color: blue;
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  bottom: 0px;
+}
+#endScreenBody {
+  background-color: green;
   position: absolute;
   width: 500px;
   height: 500px;

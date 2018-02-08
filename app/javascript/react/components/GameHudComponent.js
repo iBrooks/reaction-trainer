@@ -25,10 +25,9 @@ class GameHud extends Component {
     clearInterval(this.t)
   }
   componentWillUpdate(nextProps, nextState){
-    // console.log(nextState.paused)
-    // if (!nextState.paused) {
-    //   this.t = setInterval(()=>{this.clock()}, 1000)
-    // }
+    if(this.props.pause == true && nextProps.pause == false){
+      this.t = setInterval(()=>{this.clock()}, 1000)
+    }
   }
   clock(){
     let secondsString, minutesString, time

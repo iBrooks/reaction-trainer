@@ -19,9 +19,12 @@ class Timer extends Component {
   shouldComponentUpdate(nextProps, nextState){
     return !nextProps.pause
   }
-  componentWillUpdate(){
+  componentWillUpdate(nextProps, nextState){
+
     clearInterval(this.t)
-    this.props.onTimerStop(this.mSec)
+    if (!this.props.pause ) {
+      this.props.onTimerStop(this.mSec)
+    }
   }
   componentDidUpdate(prevProps, prevState){
     this.mSec = 0
