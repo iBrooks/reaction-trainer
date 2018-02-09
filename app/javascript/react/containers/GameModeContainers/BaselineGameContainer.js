@@ -13,7 +13,7 @@ class BaselineGame extends Component{
     this.state = {
       location: this.newLocation(),
       update: true,
-      gameLength: 5,
+      gameLength: 30,
       gameState: 'ready',
       times: [],
       count: 1,

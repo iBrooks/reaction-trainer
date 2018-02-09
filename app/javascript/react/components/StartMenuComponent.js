@@ -4,38 +4,34 @@ import Foundation from 'react-foundation';
 const StartMenu = (props) => {
   let baselineButton, enduranceButton, challengeButton
   if (props.mode == 'Baseline'){
-    baselineButton = 'button'
-    challengeButton = 'button secondary'
-    enduranceButton = 'button secondary'
+    baselineButton = 'expand button selected'
+    challengeButton = 'expand button unSelected'
+    enduranceButton = 'expand button unSelected'
   } else if (props.mode == 'Endurance') {
-    baselineButton = 'button secondary'
-    challengeButton = 'button secondary'
-    enduranceButton = 'button'
+    baselineButton = 'expand button unSelected'
+    challengeButton = 'expand button unSelected'
+    enduranceButton = 'expand button selected'
   } else {
-    baselineButton = 'button secondary'
-    challengeButton = 'button'
-    enduranceButton = 'button secondary'
+    baselineButton = 'expand button unSelected'
+    challengeButton = 'expand button selected'
+    enduranceButton = 'expand button unSelected'
   }
   return(
     <div id='startMenu'>
       <div className='row'>
-        <div className='small-3 columns '>
+        <div>
           <a href="" onClick={props.chooseBaseline} className={baselineButton}>Baseline</a>
-        </div>
-        <div className='small-3 columns'>
           <a href="" onClick={props.chooseEndurance} className={enduranceButton}>Endurance</a>
-        </div>
-        <div className='small-3 columns'>
           <a href="" onClick={props.chooseChallenge} className={challengeButton}>Challenge</a>
         </div>
       </div>
-      <div className='row'>
-        <div className='small-8 columns'>
-          {props.description}
-        </div>
+      <div id='startButton'>
+        <a href="" onClick={props.startGame} className="expand button start">Start {props.mode}</a>
       </div>
       <div className='row'>
-        <a href="" onClick={props.startGame} className="button success">Start {props.mode}</a>
+        <div id='gameDescription' className='small-11 columns small-centered text-center'>
+          {props.description}
+        </div>
       </div>
     </div>
   )

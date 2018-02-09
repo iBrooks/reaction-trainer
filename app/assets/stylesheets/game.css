@@ -44,8 +44,36 @@
   bottom: 0px;
   z-index: 2;
 }
-#startScreenBanner {
+#startMenu {
+  background-color: #C1CAD6;
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  bottom: 0px;
+  z-index: 2;
+}
+.button.selected {
+  background-color: #77A6B6;
+}
+.button.unSelected {
+  background-color: #C1CAD6;
+}
+.button.start {
   background-color: #3D5A80;
+}
+#startButton {
+  /* position: absolute; */
+  bottom: 45px;
+}
+#gameDescription {
+  height: 50px;
+  color: white;
+  font-size: 30pt;
+}
+#startMenuBanner {
+  background-color: #3D5A80;
+  color: white;
+  font-size: 20pt;
   position: absolute;
   width: 500px;
   height: 45px;
