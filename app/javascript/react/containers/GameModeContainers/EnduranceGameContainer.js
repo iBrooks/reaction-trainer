@@ -194,6 +194,9 @@ class BaselineGame extends Component{
             </div>
           </div>
           <div id='startScreenBody' className={startScreenClass}>
+            <div id='exitButton'>
+              <FontAwesomeIcon icon={faTimesCircle} size='4x' onClick={this.props.exitGame}/>
+            </div>
             <div id='playButton'>
             <FontAwesomeIcon icon={faPlayCircle} size='8x' onClick={this.startGame}/>
           </div>
