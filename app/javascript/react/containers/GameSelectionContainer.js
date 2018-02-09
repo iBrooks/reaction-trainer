@@ -26,7 +26,7 @@ class GameSelection extends Component {
     } else if (mode == 'Endurance') {
       description = 'Non-stop targets that expire. How long can you last?'
     } else {
-      description = '5 levels of increasing difficulty. Can you beat them all?'
+      description = 'Coming Soon!'
     }
     this.setState({
       mode: mode,
@@ -35,7 +35,9 @@ class GameSelection extends Component {
   }
   startGame(event){
     event.preventDefault()
+    if (!(this.state.mode == 'Challenge')) {
     this.setState({ ready: true })
+  }
   }
   exitGame(){
     this.setState({ ready: false })
