@@ -78,10 +78,10 @@ class GameHud extends Component {
   }
   targetPercentage(){
     let percentage
-    if (this.props.count == 0){
+    if (this.props.count == 1){
       percentage = '---'
     } else {
-      percentage = Math.round(((this.props.hit/(this.props.count)) * 100)*10)/10
+      percentage = Math.round(((this.props.hit/(this.props.count - 1)) * 100)*10)/10
     }
     return(percentage)
   }
