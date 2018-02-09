@@ -10,7 +10,7 @@ class GameSelection extends Component {
     this.state = {
       targetCount: 10,
       mode: 'Baseline',
-      description: '30 static targets. How fast can you click through them all?',
+      description: '30 static targets. How quickly can you hit them all?',
       ready: false
     }
     this.chooseMode = this.chooseMode.bind(this)
@@ -22,9 +22,9 @@ class GameSelection extends Component {
   chooseMode(mode){
     let description
     if (mode == 'Baseline') {
-      description = '30 static targets. How fast can you click through them all?'
+      description = '30 static targets. How quickly can you hit them all?'
     } else if (mode == 'Endurance') {
-      description = 'Non-stop targets that expire. How long can you last, and how accurate can you be?'
+      description = 'Non-stop targets that expire. How long can you last?'
     } else {
       description = '5 levels of increasing difficulty. Can you beat them all?'
     }
@@ -76,6 +76,9 @@ class GameSelection extends Component {
     } else {
       return(
         <div id='gameContainer'>
+          <div id='startMenuBanner' className='text-center'>
+            Choose Your Mode
+          </div>
           <StartMenu
             chooseChallenge={chooseChallenge}
             chooseBaseline={chooseBaseline}

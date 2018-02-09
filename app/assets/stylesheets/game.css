@@ -1,57 +1,86 @@
 #gridContainer {
-position: absolute;
-bottom: 0;
-z-index: -1;
+  position: absolute;
+  bottom: 0;
+  z-index: -1;
 }
 #gameContainer {
-position: fixed;
-width: 500px;
-height: 545px;
-margin: auto;
-left: 0;
-right: 0;
+  position: fixed;
+  width: 500px;
+  height: 545px;
+  margin: auto;
+  left: 0;
+  right: 0;
 }
 #gameHud {
+  color: #C1CAD6;
+  background-color: #3D5A80;
   width: 500px;
   height: 45px;
   position: absolute;
   top: 0px;
 }
-
 #gameBackground {
-background-color: #cecece;
-position: absolute;
-width: 500px;
-height: 500px;
-bottom: 0px;
-z-index: 0;
+  background-color: #C1CAD6;
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  bottom: 0px;
+  z-index: 0;
 }
-
 #target {
   height: 50px;
   width: 50px;
-  background-color: red;
+  background-color: #987284;
   border-radius: 50%;
   display: grid;
   z-index: 1;
 }
 #pauseScreen {
-  background-color: yellow;
+  background-color: #C1CAD6;
+  color: #3D5A80;
   position: absolute;
   width: 500px;
   height: 500px;
   bottom: 0px;
   z-index: 2;
 }
-#startScreenBanner {
-  background-color: black;
+#startMenu {
+  background-color: #C1CAD6;
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  bottom: 0px;
+  z-index: 2;
+}
+.button.selected {
+  background-color: #77A6B6;
+}
+.button.unSelected {
+  background-color: #C1CAD6;
+}
+.button.start {
+  background-color: #3D5A80;
+}
+#startButton {
+  /* position: absolute; */
+  bottom: 45px;
+}
+#gameDescription {
+  height: 50px;
+  color: white;
+  font-size: 30pt;
+}
+#startMenuBanner {
+  background-color: #3D5A80;
+  color: white;
+  font-size: 20pt;
   position: absolute;
   width: 500px;
   height: 45px;
   top: 0px;
 }
 #endScreenBanner {
-  background-color: black;
+  background-color: #3D5A80;
   position: absolute;
   width: 500px;
   height: 45px;
@@ -62,23 +91,26 @@ z-index: 0;
   top: 188px;
   left: 188px;
 }
-.whiteText {
-  color: white;
-}
 #startScreenBody {
-  background-color: blue;
-  position: absolute;
-  width: 500px;
-  height: 500px;
-  bottom: 0px;
-}
-#endScreenBody {
-  background-color: green;
+  background-color: #C1CAD6;
+  color: #3D5A80;
   position: absolute;
   width: 500px;
   height: 500px;
   bottom: 0px;
   z-index: 2;
+}
+#endScreenBody {
+  background-color: #C1CAD6;
+  color: #3D5A80;
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  bottom: 0px;
+  z-index: 2;
+}
+.whiteText {
+  color: #C1CAD6;
 }
 .hide {
   display: none;

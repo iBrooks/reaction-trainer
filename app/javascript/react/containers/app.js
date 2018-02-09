@@ -13,9 +13,9 @@ class App extends Component {
   render () {
     return(
       <Router history={browserHistory}>
-        <Route path='/' component={Menu} />
-        <Route path='/stats' component={Stats} />
-        <Route path='/play' component={GameSelection} />
+        {/* <Route path='/' component={Menu} />
+        <Route path='/stats' component={Stats} /> */}
+        <Route path='*' component={GameSelection} />
       </Router>
     )
   }
