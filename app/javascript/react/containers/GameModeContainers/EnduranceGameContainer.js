@@ -123,32 +123,6 @@ class BaselineGame extends Component{
   endGame(){
     this.setState({gameState: 'ended', update: true})
     this.clearExpire()
-    this.saveGame()
-  }
-  saveGame() {
-    let formPayload = {
-      game: {
-      target_hits: this.state.times
-      }
-    }
-    fetch('/api/v1/games', {
-     credentials: 'same-origin',
-     method: 'post',
-     body: JSON.stringify(formPayload),
-     headers: {
-       'Content-Type': 'application/json',
-       // 'X-Requested-With': 'XMLHttpRequest',
-       // 'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')
-       }
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw Error(response.statusText)
-      }
-    })
-    .catch(error => {
-      console.log(error)
-    })
   }
   render(){
     let startScreenClass, endScreenClass
