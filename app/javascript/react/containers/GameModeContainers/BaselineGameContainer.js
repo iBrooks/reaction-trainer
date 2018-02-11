@@ -99,7 +99,6 @@ class BaselineGame extends Component{
   endGame(){
     this.setState({gameState: 'ended', update: true})
   }
-
   render(){
     let startScreenClass, endScreenClass
     if (this.state.gameState == 'ready'){
