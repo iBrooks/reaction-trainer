@@ -1,7 +1,7 @@
 class Api::V1::GamesController < ApplicationController
   skip_before_action :verify_authenticity_token
   def create
-    if current_user.user_name == game_params[:userName]
+    if current_user.user_name == params[:userName]
       new_game = Game.new(game_params)
       new_game.user = current_user
       new_game.save
@@ -25,8 +25,7 @@ protected
       :gameTime,
       :clickTotal,
       :clickAccuracy,
-      :targetAccuracy,
-      :userName
+      :targetAccuracy
     )
   end
 end

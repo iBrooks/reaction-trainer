@@ -53,8 +53,8 @@ class StatAggregator extends Component {
         clickTotal: this.clickTotal,
         clickAccuracy: this.clickAccuracy,
         targetAccuracy: this.targetAccuracy,
-        userName: this.userName
-      }
+      },
+      userName: this.userName
     }
     fetch('/api/v1/games', {
      credentials: 'same-origin',

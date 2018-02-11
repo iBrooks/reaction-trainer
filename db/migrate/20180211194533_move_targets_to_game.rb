@@ -1,9 +1,8 @@
 class MoveTargetsToGame < ActiveRecord::Migration[5.1]
   def up
-    drop_table target_hits
+    drop_table :target_hits
 
-    add_column :games, :target_times, integer[]
-    end
+    add_column :games, :target_times, :integer, array:true, default: []
   end
   def down
     remove_column :games, :target_times
