@@ -3,6 +3,7 @@ import { Router, browserHistory, Route, IndexRoute } from 'react-router';
 import Target from '../../components/TargetComponent'
 import Timer from '../../components/TimerComponent'
 import Background from '../../components/BackgroundComponent'
+import StatAggregator from '../../components/StatAggregatorComponent'
 import GameHud from '../../components/GameHudComponent'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import { faPlayCircle, faTimesCircle, faRedoAlt } from '@fortawesome/fontawesome-free-solid'
@@ -12,32 +13,65 @@ class BaselineGame extends Component{
     super(props)
     this.state = {
       location: this.newLocation(),
-      update: true,
-      gameLength: 30,
+      targetTotal: 2,
       gameState: 'ready',
-      times: [],
       count: 1,
-      missCount: 0,
+      clickMisses: 0,
       pause: false,
-      pauseScreen: 'hide'
+      pauseScreen: 'hide',
+      gameDifficulty: 0,
+      userName: 'test'
     }
     this.onHit = this.onHit.bind(this)
     this.onMiss = this.onMiss.bind(this)
-    this.onTimerStop = this.onTimerStop.bind(this)
     this.newLocation = this.newLocation.bind(this)
     this.startGame = this.startGame.bind(this)
     this.endGame = this.endGame.bind(this)
     this.pauseGame = this.pauseGame.bind(this)
     this.resumeGame = this.resumeGame.bind(this)
-    this.restartGame = this.restartGame.bind(this)
+    this.startGameTimer = this.startGameTimer.bind(this)
+    this.stopGameTimer = this.stopGameTimer.bind(this)
+    this.startTargetTimer = this.startTargetTimer.bind(this)
+    this.stopTargetTimer = this.stopTargetTimer.bind(this)
+    this.saveTargetTime = this.saveTargetTime.bind(this)
+
+    this.clickMisses = 0
+
+    this.gameTimer = null
+    this.gameTime = 0
+
+    this.targetTimer = null
+    this.targetTime = 0
+    this.targetTimes = []
   }
 
-  shouldComponentUpdate(nextProps, nextState){
-    return nextState.update
+  componentWillUnmount(){
+    clearInterval(this.gameTimer)
+    clearInterval(this.targetTimer)
   }
 
-  onTimerStop(mSec){
-    this.state.times.push(mSec)
+  startGameTimer(){
+    this.gameTimer = setInterval(()=>{
+       this.gameTime = this.gameTime + 1
+    }, 1)
+  }
+  stopGameTimer(){
+    clearInterval(this.gameTimer)
+  }
+
+  startTargetTimer(){
+    this.targetTimer = setInterval(()=>{
+       this.targetTime = this.targetTime + 1
+    }, 1)
+  }
+  stopTargetTimer(){
+    clearInterval(this.targetTimer)
+    this.targetTime = 0
+  }
+  saveTargetTime(){
+    clearInterval(this.targetTimer)
+    this.targetTimes.push(this.targetTime)
+    this.targetTime = 0
   }
 
   newLocation(){
@@ -49,55 +83,60 @@ class BaselineGame extends Component{
 
   onHit(event){
     event.preventDefault()
-    if (this.state.count == this.state.gameLength){
+    if (this.state.count == this.state.targetTotal){
       this.endGame()
     } else {
+      this.saveTargetTime()
       this.setState({
         count: this.state.count + 1,
-        location: this.newLocation(),
-        update: true
+        location: this.newLocation()
       })
-      console.log(this.state.location)
+      this.startTargetTimer()
     }
   }
   onMiss(event){
     event.preventDefault()
-    console.log('Miss!')
-    this.setState({
-      missCount: this.state.missCount + 1,
-      update: false
-    })
+    this.clickMisses = this.clickMisses + 1
   }
 
   startGame(){
-    this.setState({gameState: 'running', update: true})
+    this.setState({gameState: 'running'})
+    this.startGameTimer()
+    this.startTargetTimer()
   }
   pauseGame(){
+    this.stopGameTimer()
+    this.stopTargetTimer()
     this.setState({
       pause: true,
-      pauseScreen: 'show',
-      update: true
+      pauseScreen: 'show'
     })
   }
   resumeGame(){
     this.setState({
       pause: false,
       pauseScreen: 'hide',
-      update: true
+      location: this.newLocation()
     })
+    this.startGameTimer()
+    this.startTargetTimer()
   }
   restartGame(){
     this.setState({
       gameState: 'ready',
-      update: true,
       count: 1,
       pauseScreen: 'hide',
       pause: false,
       location: this.newLocation()
     })
+    this.clickMisses = 0
+    this.gameTime = 0
+    this.targetTime = 0
+    this.targetTimes = []
   }
   endGame(){
-    this.setState({gameState: 'ended', update: true})
+    this.saveTargetTime()
+    this.setState({gameState: 'ended'})
   }
   render(){
     let startScreenClass, endScreenClass
@@ -113,14 +152,26 @@ class BaselineGame extends Component{
     }
     return(
       <div id='gameContainer'>
-        <Timer
+        <StatAggregator
+          clickMisses={this.clickMisses}
+          targetHits={this.state.count}
+          targetMisses={0}
+          targetTotal={this.state.targetTotal}
+          targetTimes={this.targetTimes}
+          gameState={this.state.gameState}
+          gameType={'Baseline'}
+          gameDifficulty={this.state.gameDifficulty}
+          gameTime={this.gameTime}
+          userName={this.state.userName}
+        />
+        {/* <Timer
           count={this.state.count}
           onTimerStop={this.onTimerStop}
           pause={this.state.pause}
           gameState={this.state.gameState}
-        />
+        /> */}
         <GameHud
-          totalTargets={this.state.gameLength}
+          totalTargets={this.state.targetTotal}
           count={this.state.count}
           hit={this.state.count - 1}
           missed={'N/A'}

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 class StatAggregator extends Component {
   constructor(props){
+    super(props)
     this.state = {}
     this.clickMisses = 0
     this.targetHits = 0
@@ -13,9 +14,9 @@ class StatAggregator extends Component {
     this.gameTime = ''
     this.userName = ''
 
-    this.clickTotal = this.targetHits + this.clickMisses
-    this.clickAccuracy = this.percentage(this.targetHits/(this.clickTotal))
-    this.targetAccuracy = this.percentage(this.targetHits/this.targetTotal)
+    this.clickTotal = 0
+    this.clickAccuracy = 0
+    this.targetAccuracy = 0
 
     this.percentage = this.percentage.bind(this)
     this.save = this.save.bind(this)
@@ -32,10 +33,15 @@ class StatAggregator extends Component {
     this.gameType = nextProps.gameType
     this.gameDifficulty = nextProps.gameDifficulty
     this.gameTime = nextProps.gameTime
+
+    this.clickTotal = this.targetHits + this.clickMisses
+    this.clickAccuracy = this.percentage(this.targetHits/(this.clickTotal))
+    this.targetAccuracy = this.percentage(this.targetHits/this.targetTotal)
     if (nextProps.userName != null){
       this.userName = nextProps.userName
     }
     if (nextProps.gameState == 'ended' && nextProps.userName != null) {
+      debugger
       this.save()
     }
   }
@@ -46,7 +52,7 @@ class StatAggregator extends Component {
         targetHits: this.targetHits,
         targetMisses: this.targetMisses,
         targetTotal: this.targetTotal,
-        targetTimes: this.targetTimes,
+        target_times: this.targetTimes,
         gameType: this.gameType,
         gameDifficulty: this.gameDifficulty,
         gameTime: this.gameTime,
@@ -79,3 +85,5 @@ class StatAggregator extends Component {
     return null
   }
 }
+
+export default StatAggregator

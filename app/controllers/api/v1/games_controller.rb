@@ -1,31 +1,20 @@
 class Api::V1::GamesController < ApplicationController
   skip_before_action :verify_authenticity_token
   def create
+    binding.pry
     if current_user.user_name == params[:userName]
       new_game = Game.new(game_params)
       new_game.user = current_user
       new_game.save
-      status: :ok
+      render status: :ok
     else
-      status: :unauthorized
+      render status: :unauthorized
     end
   end
 
 protected
 
   def game_params
-    params.require(:game).permit(
-      :clickMisses,
-      :targetHits,
-      :targetMisses,
-      :targetTotal,
-      :targetTimes => [],
-      :gameType,
-      :gameDifficulty,
-      :gameTime,
-      :clickTotal,
-      :clickAccuracy,
-      :targetAccuracy
-    )
+    params.require(:game).permit(:clickMisses, :targetHits, :targetMisses, :targetTotal, :gameType, :gameDifficulty, :gameTime, :clickTotal, :clickAccuracy, :targetAccuracy, :target_times => [])
   end
 end
