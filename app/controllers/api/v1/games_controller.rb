@@ -1,15 +1,19 @@
 class Api::V1::GamesController < ApplicationController
   skip_before_action :verify_authenticity_token
   def create
-    new_game = Game.create()
-    game_params[:target_hits].each do |target_hit|
-      TargetHit.create(ms: target_hit, game_id: new_game.id)
+    if current_user.user_name == params[:userName]
+      new_game = Game.new(game_params)
+      new_game.user = current_user
+      new_game.save
+      render json: {message: 'Game saved'}, status: :ok
+    else
+      render json: {message: 'Username does not match current user'}, status: :unauthorized
     end
   end
 
 protected
 
   def game_params
-    params.require(:game).permit(:target_hits => [])
+    params.require(:game).permit(:clickMisses, :targetHits, :targetMisses, :targetTotal, :gameType, :gameDifficulty, :gameTime, :clickTotal, :clickAccuracy, :targetAccuracy, :target_times => [])
   end
 end
