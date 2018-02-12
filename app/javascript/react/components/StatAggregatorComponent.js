@@ -41,7 +41,6 @@ class StatAggregator extends Component {
       this.userName = nextProps.userName
     }
     if (nextProps.gameState == 'ended' && nextProps.userName != null) {
-      debugger
       this.save()
     }
   }
