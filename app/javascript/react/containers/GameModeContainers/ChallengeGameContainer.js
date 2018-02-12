@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Router, browserHistory, Route, IndexRoute } from 'react-router';
 import Target from '../../components/TargetComponent'
-import Timer from '../../components/TimerComponent'
 import Background from '../../components/BackgroundComponent'
 
 class ChallengeGame extends Component{

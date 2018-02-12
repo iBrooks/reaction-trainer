@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Router, browserHistory, Route, IndexRoute } from 'react-router';
 import Target from '../../components/TargetComponent'
-import Timer from '../../components/TimerComponent'
 import Background from '../../components/BackgroundComponent'
+import StatAggregator from '../../components/StatAggregatorComponent'
 import GameHud from '../../components/GameHudComponent'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import { faPlayCircle, faTimesCircle, faRedoAlt } from '@fortawesome/fontawesome-free-solid'
@@ -12,117 +12,151 @@ class BaselineGame extends Component{
     super(props)
     this.state = {
       location: this.newLocation(),
-      update: true,
-      gameLength: '∞',
       gameState: 'ready',
-      times: [],
-      count: 1,
-      hit: 0,
-      missed: 0,
-      missCount: 0,
+      targetCount: 1,
+      targetMisses: 0,
       pause: false,
-      pauseScreen: 'hide'
+      pauseScreen: 'hide',
+      gameDifficulty: 0,
+      userName: 'test'
     }
     this.onHit = this.onHit.bind(this)
     this.onMiss = this.onMiss.bind(this)
-    this.onTimerStop = this.onTimerStop.bind(this)
     this.newLocation = this.newLocation.bind(this)
     this.startGame = this.startGame.bind(this)
     this.endGame = this.endGame.bind(this)
     this.pauseGame = this.pauseGame.bind(this)
     this.resumeGame = this.resumeGame.bind(this)
     this.restartGame = this.restartGame.bind(this)
+    this.startGameTimer = this.startGameTimer.bind(this)
+    this.stopGameTimer = this.stopGameTimer.bind(this)
+    this.startTargetTimer = this.startTargetTimer.bind(this)
+    this.stopTargetTimer = this.stopTargetTimer.bind(this)
+    this.saveTargetTime = this.saveTargetTime.bind(this)
     this.setExpire = this.setExpire.bind(this)
     this.clearExpire = this.clearExpire.bind(this)
     this.expireTarget = this.expireTarget.bind(this)
+
     this.expire = null
+
+    this.clickMisses = 0
+
+    this.gameTimer = null
+    this.gameTime = 0
+
+    this.targetTimer = null
+    this.targetTime = 0
+    this.targetTimes = []
   }
+
   componentWillUnmount(){
+    clearInterval(this.gameTimer)
+    clearInterval(this.targetTimer)
     this.clearExpire()
   }
-  shouldComponentUpdate(nextProps, nextState){
-    return nextState.update
+
+  startGameTimer(){
+    this.gameTimer = setInterval(()=>{
+       this.gameTime = this.gameTime + 1
+    }, 1)
+  }
+  stopGameTimer(){
+    clearInterval(this.gameTimer)
+  }
+
+  startTargetTimer(){
+    this.targetTimer = setInterval(()=>{
+       this.targetTime = this.targetTime + 1
+    }, 1)
+  }
+  stopTargetTimer(){
+    clearInterval(this.targetTimer)
+    this.targetTime = 0
+  }
+  saveTargetTime(){
+    clearInterval(this.targetTimer)
+    this.targetTimes.push(this.targetTime)
+    this.targetTime = 0
   }
   setExpire(){
     this.clearExpire()
-    this.expire = setTimeout(()=>{ this.expireTarget()}, 1000)
+    this.expireTimer = setTimeout(()=>{ this.expireTarget()}, 1000)
   }
   clearExpire(){
-    clearTimeout(this.expire)
+    clearTimeout(this.expireTimer)
   }
   expireTarget(){
-    console.log('target expired')
     this.setState({
-      count: this.state.count + 1,
-      missed: this.state.missed + 1,
-      location: this.newLocation(),
-      update: true
+      targetCount: this.state.targetCount + 1,
+      targetMisses: this.state.targetMisses+ 1,
+      location: this.newLocation()
     })
     this.setExpire()
   }
+
   newLocation(){
     let newX = Math.floor(Math.random() * 10)
     let newY = Math.floor(Math.random() * 10)
     let newTargetLocation = 'P' + newX.toString() + newY.toString()
     return newTargetLocation
   }
-  onTimerStop(mSec){
-    this.state.times.push(mSec)
-  }
+
   onHit(event){
     event.preventDefault()
+    this.saveTargetTime()
     this.setState({
-      count: this.state.count + 1,
-      hit: this.state.hit + 1,
-      location: this.newLocation(),
-      update: true
+      targetCount: this.state.targetCount + 1,
+      location: this.newLocation()
     })
+    this.startTargetTimer()
     this.setExpire()
   }
   onMiss(event){
     event.preventDefault()
-    console.log('Miss!')
-    this.setState({
-      missCount: this.state.missCount + 1,
-      update: false
-    })
+    this.clickMisses = this.clickMisses + 1
   }
 
   startGame(){
-    this.setState({gameState: 'running', update: true})
+    this.setState({gameState: 'running'})
+    this.startGameTimer()
+    this.startTargetTimer()
     this.setExpire()
   }
   pauseGame(){
+    this.stopGameTimer()
+    this.stopTargetTimer()
+    this.clearExpire()
     this.setState({
       pause: true,
-      pauseScreen: 'show',
-      update: true
+      pauseScreen: 'show'
     })
-    this.clearExpire()
   }
   resumeGame(){
     this.setState({
       pause: false,
       pauseScreen: 'hide',
-      update: true
+      location: this.newLocation()
     })
+    this.startGameTimer()
+    this.startTargetTimer()
     this.setExpire()
   }
   restartGame(){
     this.setState({
       gameState: 'ready',
-      update: true,
-      count: 1,
-      hit: 0,
-      missed: 0,
+      targetCount: 1,
       pauseScreen: 'hide',
       pause: false,
       location: this.newLocation()
     })
+    this.clickMisses = 0
+    this.gameTime = 0
+    this.targetTime = 0
+    this.targetTimes = []
   }
   endGame(){
-    this.setState({gameState: 'ended', update: true})
-    this.clearExpire()
+    this.saveTargetTime()
+    this.setState({gameState: 'ended'})
   }
   render(){
     let startScreenClass, endScreenClass
@@ -138,17 +172,22 @@ class BaselineGame extends Component{
     }
     return(
       <div id='gameContainer'>
-        <Timer
-          count={this.state.count}
-          onTimerStop={this.onTimerStop}
-          pause={this.state.pause}
+        <StatAggregator
+          clickMisses={this.clickMisses}
+          targetHits={(this.state.targetCount - this.state.targetMisses)}
+          targetMisses={this.state.targetMisses}
+          targetTotal={this.state.targetCount}
+          targetTimes={this.targetTimes}
           gameState={this.state.gameState}
+          gameType={'Endurance'}
+          gameDifficulty={this.state.gameDifficulty}
+          gameTime={this.gameTime}
+          userName={this.state.userName}
         />
         <GameHud
-          totalTargets={this.state.gameLength}
-          count={this.state.count}
-          hit={this.state.hit}
-          missed={this.state.missed}
+          totalTargets={'∞'}
+          targetCount={this.state.targetCount}
+          targetMisses={this.state.targetMisses}
           pause={this.state.pause}
           pauseGame={this.pauseGame}
           gameState={this.state.gameState}
