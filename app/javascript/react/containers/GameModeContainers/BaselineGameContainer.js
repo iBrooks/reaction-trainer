@@ -135,6 +135,7 @@ class BaselineGame extends Component{
     this.targetTimes = []
   }
   endGame(){
+
     this.saveTargetTime()
     this.setState({gameState: 'ended'})
   }
