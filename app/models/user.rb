@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   has_many :games
-  validates :user_name, presence: true, uniqueness: { case_sensitive: false }, format: { with: /\A\S+\z/, message: 'can\'t have whitespace' }
+  validates :user_name, presence: true, uniqueness: { case_sensitive: false }
   attr_accessor :login
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
@@ -15,8 +15,7 @@ class User < ApplicationRecord
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
       user.password = Devise.friendly_token[0,20]
-      binding.pry
-      user.name = auth.info.name   # assuming the user model has a name
+      user.user_name = auth.info.name   # assuming the user model has a name
       # user.image = auth.info.image # assuming the user model has an image
       # If you are using confirmable and the provider(s) you use validate emails,
       # uncomment the line below to skip the confirmation emails.
@@ -36,3 +35,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, omniauth_providers: %i[facebook]
 end
+
+
+# , format: { with: /\A\S+\z/, message: 'can\'t have whitespace' }
