@@ -25,7 +25,6 @@ class StatAggregator extends Component {
     if(document.getElementById('userName')){
       this.userName = document.getElementById('userName').innerHTML
     }
-    debugger
   }
   componentWillReceiveProps(nextProps){
     this.clickMisses = nextProps.clickMisses
