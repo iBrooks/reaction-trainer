@@ -21,8 +21,11 @@ class StatAggregator extends Component {
     this.percentage = this.percentage.bind(this)
     this.save = this.save.bind(this)
   }
-  percentage(decimal){
-    return Math.round(((decimal) * 100)*10)/10
+  componentDidMount(){
+    if(document.getElementById('userName')){
+      this.userName = document.getElementById('userName').innerHTML
+    }
+    debugger
   }
   componentWillReceiveProps(nextProps){
     this.clickMisses = nextProps.clickMisses
@@ -37,12 +40,13 @@ class StatAggregator extends Component {
     this.clickTotal = this.targetHits + this.clickMisses
     this.clickAccuracy = this.percentage(this.targetHits/(this.clickTotal))
     this.targetAccuracy = this.percentage(this.targetHits/this.targetTotal)
-    if (nextProps.userName != null){
-      this.userName = nextProps.userName
-    }
-    if (nextProps.gameState == 'ended' && nextProps.userName != null) {
+
+    if (nextProps.gameState == 'ended' && this.userName != '') {
       this.save()
     }
+  }
+  percentage(decimal){
+    return Math.round(((decimal) * 100)*10)/10
   }
   save() {
     let formPayload = {
@@ -72,7 +76,7 @@ class StatAggregator extends Component {
        }
     })
     .then(response => {
-      if (!response.ok) {
+      if (!(response.ok || response.no_content)) {
         throw Error(response.statusText)
       }
     })

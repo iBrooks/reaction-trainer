@@ -5,9 +5,9 @@ class Api::V1::GamesController < ApplicationController
       new_game = Game.new(game_params)
       new_game.user = current_user
       new_game.save
-      render status: :ok
+      render json: {message: 'Game saved'}, status: :ok
     else
-      render status: :unauthorized
+      render json: {message: 'Username does not match current user'}, status: :unauthorized
     end
   end
 
