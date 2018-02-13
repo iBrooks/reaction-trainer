@@ -171,7 +171,7 @@ class BaselineGame extends Component{
       endScreenClass='show'
     }
     return(
-      <div id='gameContainer'>
+      <div>
         <StatAggregator
           clickMisses={this.clickMisses}
           targetHits={(this.state.targetCount - this.state.targetMisses)}
@@ -192,7 +192,7 @@ class BaselineGame extends Component{
           pauseGame={this.pauseGame}
           gameState={this.state.gameState}
         />
-        <div id='gridContainer' className='container'>
+        <div id='coreDisplayPanel' className='container'>
           <div id='pauseScreen' className={this.state.pauseScreen}>
             <div className='row'>
               <div className='small-2 columns right'>

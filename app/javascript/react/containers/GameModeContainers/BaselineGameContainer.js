@@ -151,8 +151,14 @@ class BaselineGame extends Component{
       startScreenClass='hide'
       endScreenClass='show'
     }
+    let overlayClass
+    if (this.state.pause || this.state.gameState == 'ready' || this.state.gameState == 'ended'){
+      overlayClass = 'show'
+    } else {
+      overlayClass = 'hide'
+    }
     return(
-      <div id='gameContainer'>
+      <div>
         <StatAggregator
           clickMisses={this.clickMisses}
           targetHits={this.state.targetCount}
@@ -174,37 +180,25 @@ class BaselineGame extends Component{
           gameState={this.state.gameState}
           gameType={'Baseline'}
         />
-        <div id='gridContainer' className='container'>
-          <div id='pauseScreen' className={this.state.pauseScreen}>
-            <div className='row'>
-              <div className='small-2 columns right'>
-                <FontAwesomeIcon icon={faRedoAlt} size='4x' onClick={this.restartGame}/>
-              </div>
-              <div id='playButton'>
-                <FontAwesomeIcon icon={faPlayCircle} size='8x' onClick={this.resumeGame}/>
-              </div>
-              <div id='exitButton'>
-                <FontAwesomeIcon icon={faTimesCircle} size='4x' onClick={this.props.exitGame}/>
-              </div>
+        <div id='coreDisplayPanel' className='container'>
+          <div id='coreDisplayOverlay' className={overlayClass}>
+            <div className={startScreenClass}>
+                <FontAwesomeIcon id='exitButton' icon={faTimesCircle} size='4x' onClick={this.props.exitGame}/>
+                <FontAwesomeIcon id='playButton'  icon={faPlayCircle} size='8x' onClick={this.startGame}/>
             </div>
-          </div>
-          <div id='startScreenBody' className={startScreenClass}>
-            <div id='exitButton'>
-              <FontAwesomeIcon icon={faTimesCircle} size='4x' onClick={this.props.exitGame}/>
+            <div className={this.state.pauseScreen}>
+                <FontAwesomeIcon id='restartButton' icon={faRedoAlt} size='4x' onClick={this.restartGame}/>
+                <FontAwesomeIcon id='playButton'  icon={faPlayCircle} size='8x' onClick={this.resumeGame}/>
+                <FontAwesomeIcon id='exitButton' icon={faTimesCircle} size='4x' onClick={this.props.exitGame}/>
             </div>
-            <div id='playButton'>
-            <FontAwesomeIcon icon={faPlayCircle} size='8x' onClick={this.startGame}/>
-          </div>
-          </div>
-          <div id='endScreenBody' className={endScreenClass}>
-            <div id='exitButton'>
-              <FontAwesomeIcon icon={faTimesCircle} size='4x' onClick={this.props.exitGame}/>
+            <div className={endScreenClass}>
+                <FontAwesomeIcon id='exitButton' icon={faTimesCircle} size='4x' onClick={this.props.exitGame}/>
+                <FontAwesomeIcon id='playButton'  icon={faRedoAlt} size='8x' onClick={this.restartGame}/>
             </div>
-            <div id='playButton'>
-            <FontAwesomeIcon icon={faRedoAlt} size='8x' onClick={this.restartGame}/>
-          </div>
           </div>
           <Target
+            pause={this.state.pause}
+            gameState={this.state.gameState}
             location={this.state.location}
             onHit={this.onHit}
           />

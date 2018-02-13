@@ -92,7 +92,7 @@ class GameHud extends Component {
   }
   render() {
     return(
-        <div className='row' id='gameHud'>
+        <div className='row' id='lowerNavPanel'>
           <div className='small-2 columns'>
             <FontAwesomeIcon icon={faBullseye} />
             {this.props.targetCount}/{this.props.totalTargets}
