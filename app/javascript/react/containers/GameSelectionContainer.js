@@ -4,6 +4,9 @@ import EnduranceGame from './GameModeContainers/EnduranceGameContainer'
 import ChallengeGame from './GameModeContainers/ChallengeGameContainer'
 import StartMenu from '../components/StartMenuComponent'
 import NavBar from '../components/NavBarComponent'
+import { Link } from 'react-router';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import { faBullseye } from '@fortawesome/fontawesome-free-solid'
 
 class GameSelection extends Component {
   constructor(props) {
@@ -91,6 +94,9 @@ class GameSelection extends Component {
     }
     return(
       <div id='gameContainer'>
+        <div id='siteTitle'>
+          <Link to='/'><div id='homeLinkDiv'>Reactions<FontAwesomeIcon icon={faBullseye} id='logoTarget'/>js</div></Link>
+        </div>
         <div id='upperNavPanel'>
           <NavBar />
         </div>

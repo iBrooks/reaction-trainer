@@ -8,32 +8,22 @@ const NavBar = (props) => {
     // let userPhoto = document.getElementById('userPhoto').innerHTML
     navBar = (
       <div id='navBar'>
-        <div id='homeLinkDiv'>
-          <Link to='/'>Reactions.js</Link>
+        <div id='signOutLinkDiv'>
+          <a href='users/sign_out'>X</a>
         </div>
-      <div id='signInLinkDiv'>
-        <a href='users/sign_out'>Sign Out</a>
+        <div id='userNameDiv'>
+          {userName}
+        </div>
+        <div id='userPhotoDiv'>
+        </div>
       </div>
-      <div id='userNameDiv'>
-        {userName}
-      </div>
-      <div id='userPhotoDiv'>
-      </div>
-    </div>
     )
   } else {
     navBar =(
       <div id='navBar'>
-        <div id='homeLinkDiv'>
-          <Link to='/'>Reactions.js</Link>
-        </div>
-      <div id='signUpLinkDiv'>
-        <a href='users/sign_up'>Sign Up</a>
+        <a href='users/sign_up'><div id='signUpLinkDiv'>Sign Up</div></a>
+        <a href='users/sign_in'><div id='signInLinkDiv'>Sign In</div></a>
       </div>
-      <div id='signInLinkDiv'>
-        <a href='users/sign_in'>Sign In</a>
-      </div>
-    </div>
     )
   }
   return(
