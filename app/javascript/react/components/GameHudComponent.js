@@ -81,7 +81,7 @@ class GameHud extends Component {
     if (this.props.targetCount == 1 || this.props.gameType == 'Baseline'){
       percentage = '---'
     } else {
-      percentage = Math.round((((this.props.targetCount - this.props.targetMisses)/(this.props.targetCount)) * 100)*10)/10
+      percentage = Math.round(((((this.props.targetCount - 1) - this.props.targetMisses)/(this.props.targetCount - 1)) * 100)*10)/10
     }
     return(percentage)
   }
@@ -92,7 +92,7 @@ class GameHud extends Component {
   }
   render() {
     return(
-        <div className='row' id='gameHud'>
+        <div className='row' id='lowerNavPanel'>
           <div className='small-2 columns'>
             <FontAwesomeIcon icon={faBullseye} />
             {this.props.targetCount}/{this.props.totalTargets}

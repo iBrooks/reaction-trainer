@@ -1,0 +1,151 @@
+#gameContainer {
+  position: fixed;
+  width: 809px;
+  height: 550px;
+  margin: auto;
+  left: 0;
+  right: 0;
+}
+#siteTitle {
+  background-color: #C1CAD6;
+  position: absolute;
+  left: 0px;
+  top: 50px;
+  height: 50px;
+  width: 300px;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0px 0px 20px -5px rgba(0,0,0,0.5);
+  text-shadow: 4px 4px 5px rgba(150, 150, 150, 0.5);
+  line-height: 50px;
+  text-align: center;
+  font-size: 25pt;
+  font-style: italic;
+}
+#logoTarget{
+  color:#987284;
+}
+#upperNavPanel {
+  color: #C1CAD6;
+  background-color: #3D5A80;
+  width: 300px;
+  height: 90px;
+  position: absolute;
+  top: 109px;
+  left: 0px;
+  border-radius: 4px;
+  -webkit-box-shadow: 0px 0px 20px -2px rgba(0,0,0,0.5);
+}
+#userPhotoDiv {
+  position: absolute;
+  top: 9px;
+  left:9px;
+  width: 72px;
+  height:72px;
+  border-radius: 4px;
+  background-color: #C1CAD6;
+}
+#userNameDiv {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  height: 30px;
+  width: 201px;
+  border-radius: 4px;
+  background-color: #C1CAD6;
+  text-align: center;
+  line-height: 30px;
+  color: #313E50;
+}
+#lowerNavPanel {
+  color: #C1CAD6;
+  background-color: #3D5A80;
+  width: 300px;
+  height: 342px;
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+
+  border-radius: 4px;
+  -webkit-box-shadow: 0px 0px 20px -2px rgba(0,0,0,0.5);
+}
+#coreDisplayPanel {
+  background-color: #C1CAD6;
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  bottom: 0px;
+  right: 0px;
+  z-index: 0;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0px 0px 20px -5px rgba(0,0,0,0.5);
+}
+#coreDisplayOverlay {
+  background-color: #3D5A80;
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  top: 50px;
+  left: 50px;
+  border-radius: 4px;
+  -webkit-box-shadow: 0px 0px 20px -2px rgba(0,0,0,0.5);
+  z-index: 2;
+  color: #C1CAD6;
+}
+#homeLinkDiv {
+
+}
+#homeLinkDiv a, a:visited {
+  color: #313E50;
+}
+#signInLinkDiv {
+  position: absolute;
+  right: 9px;
+  bottom: 9px;
+  background-color: #C1CAD6;
+  color: #313E50;
+  height: 30px;
+  width: 136px;
+  border-radius: 4px;
+  text-align: center;
+  line-height: 30px;
+}
+#signUpLinkDiv a, a:visited {
+  color: #313E50;
+}
+#signInLinkDiv a, a:visited {
+  color: #313E50;
+}
+#signOutLinkDiv a, a:visited {
+  color: #313E50;
+}
+#signUpLinkDiv {
+  position: absolute;
+  bottom: 9px;
+  left: 9px;
+  height: 30px;
+  width: 136px;
+  background-color: #C1CAD6;
+  color: #313E50;
+  border-radius: 4px;
+  text-align: center;
+  line-height: 30px;
+}
+
+#signOutLinkDiv {
+  position: absolute;
+  right: 9px;
+  bottom: 9px;
+  background-color: #C1CAD6;
+  color: #313E50;
+  height: 30px;
+  width: 30px;
+  border-radius: 4px;
+  text-align: center;
+  line-height: 30px;
+}
+#userNameDiv {
+
+}
+#userPhotoDiv {
+
+}

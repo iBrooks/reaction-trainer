@@ -3,6 +3,8 @@ import { Router, browserHistory, Route, IndexRoute } from 'react-router';
 import Menu from './MenuContainer'
 import Stats from './StatsContainer'
 import GameSelection from './GameSelectionContainer'
+
+
 class App extends Component {
   constructor(props) {
     super(props)
@@ -13,9 +15,9 @@ class App extends Component {
   render () {
     return(
       <Router history={browserHistory}>
-        {/* <Route path='/' component={Menu} />
-        <Route path='/stats' component={Stats} /> */}
-        <Route path='*' component={GameSelection} />
+          {/* <Route path='/' component={Menu} />
+          <Route path='/stats' component={Stats} /> */}
+          <Route path='*' component={GameSelection} />
       </Router>
     )
   }
