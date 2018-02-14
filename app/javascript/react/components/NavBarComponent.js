@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import { faBullseye } from '@fortawesome/fontawesome-free-solid'
 
 const NavBar = (props) => {
   let navBar
@@ -7,7 +9,7 @@ const NavBar = (props) => {
     let userName = document.getElementById('userInfo').innerHTML
     // let userPhoto = document.getElementById('userPhoto').innerHTML
     navBar = (
-      <div id='navBar'>
+      <div>
         <div id='signOutLinkDiv'>
           <a href='users/sign_out'>X</a>
         </div>
@@ -16,6 +18,9 @@ const NavBar = (props) => {
         </div>
         <div id='userPhotoDiv'>
         </div>
+        <Link to='/stats'>
+          <div id='myStatsLinkDiv'>Stats</div>
+        </Link>
       </div>
     )
   } else {
@@ -27,7 +32,15 @@ const NavBar = (props) => {
     )
   }
   return(
-    navBar
+    <div id='gameContainer'>
+      <div id='siteTitle'>
+        <Link to='/'><div id='homeLinkDiv'>Reactions<FontAwesomeIcon icon={faBullseye} id='logoTarget'/>js</div></Link>
+      </div>
+      <div id='upperNavPanel'>
+        {navBar}
+      </div>
+      {props.children}
+    </div>
   )
 }
 export default NavBar
