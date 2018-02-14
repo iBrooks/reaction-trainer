@@ -16,8 +16,7 @@ class App extends Component {
     return(
       <Router history={browserHistory}>
         <Route path='/' component={NavBar}>
-          <IndexRoute component={Menu} />
-          <Route path='play' component={GameSelection} />
+          <IndexRoute component={GameSelection} />
           <Route path='stats' component={Stats} />
         </Route>
       </Router>

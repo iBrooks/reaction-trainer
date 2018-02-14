@@ -1,54 +1,50 @@
 import React, { Component } from 'react';
 import { Router, browserHistory, Route, IndexRoute } from 'react-router';
+import SelfStats from '../components/SelfStatsComponent'
+import GlobalStats from '../components/GlobalStatsComponent'
+import Graphs from '../components/GraphsComponent'
 
 class Stats extends Component{
   constructor(props){
     super(props)
     this.state = {
       mode: 'self',
-      upperLeftContent: '',
-      upperRightContent: '',
-      lowerLeftContent: '',
-      lowerRightContent: ''
+      coreContent: ''
     }
     this.chooseSelf = this.chooseSelf.bind(this)
     this.chooseGlobal = this.chooseGlobal.bind(this)
     this.chooseGraphs = this.chooseGraphs.bind(this)
   }
+  componentWillMount(){
+    this.chooseSelf()
+  }
   chooseSelf(){
+    let selfStats = (
+      <SelfStats />
+    )
     this.setState({
-      mode: 'self'
+      mode: 'self',
+      coreContent: selfStats
     })
   }
   chooseGlobal(){
+    let globalStats = (
+      <GlobalStats />
+    )
     this.setState({
-      mode: 'global'
+      mode: 'global',
+      coreContent: globalStats
     })
   }
   chooseGraphs(){
+    let graphs = (
+      <Graphs />
+    )
     this.setState({
-      mode: 'graphs'
+      mode: 'graphs',
+      coreContent: graphs
     })
   }
-  // componentDidMount(){
-  //   fetch('/api/v1/cereals.json')
-  //   .then(response => {
-  //     if (!response.ok) {
-  //       throw Error(response.statusText)
-  //     }
-  //   return response
-  //   })
-  //   .then(response =>{
-  //     let data = response.json()
-  //     return data
-  //   })
-  //   .then(data =>{
-  //   this.setState({cereals: data['cereals']})
-  //   })
-  //   .catch(error => {
-  //     console.log(error)
-  //   })
-  // }
   render(){
     let baselineOptionClass, enduranceOptionClass, challengeOptionClass
     if (this.state.mode == 'self'){
@@ -75,18 +71,7 @@ class Stats extends Component{
             </div>
           </div>
         <div id='coreDisplayPanel'>
-          <div id='upperLeftOverlay'>
-            {this.state.upperRightContent}
-          </div>
-          <div id='upperRightOverlay'>
-            {this.state.upperLeftContent}
-          </div>
-          <div id='lowerLeftOverlay'>
-            {this.state.lowerLeftContent}
-          </div>
-          <div id='lowerRightOverlay'>
-            {this.state.lowerRightContent}
-          </div>
+          {this.state.coreContent}
         </div>
       </div>
     )
