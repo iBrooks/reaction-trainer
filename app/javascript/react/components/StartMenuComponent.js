@@ -7,7 +7,7 @@ const StartMenu = (props) => {
     baselineOptionClass = 'selectedOption'
     challengeOptionClass = 'unSelectedOption'
     enduranceOptionClass = 'unSelectedOption'
-  } else if (props.mode == 'Endurance') {
+  } else if (props.mode == 'Challenge') {
     baselineOptionClass = 'unSelectedOption'
     challengeOptionClass = 'unSelectedOption'
     enduranceOptionClass = 'selectedOption'

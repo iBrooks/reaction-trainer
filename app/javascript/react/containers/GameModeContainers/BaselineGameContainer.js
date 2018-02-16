@@ -3,7 +3,7 @@ import { Router, browserHistory, Route, IndexRoute } from 'react-router';
 import Target from '../../components/TargetComponent'
 import Background from '../../components/BackgroundComponent'
 import StatAggregator from '../../components/StatAggregatorComponent'
-import BaselineGameHud from '../../components/GameHudComponent'
+import BaselineGameHud from '../../components/BaselineGameHudComponent'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import { faPlayCircle, faTimesCircle, faRedoAlt } from '@fortawesome/fontawesome-free-solid'
 
@@ -96,7 +96,9 @@ class BaselineGame extends Component{
   }
   onMiss(event){
     event.preventDefault()
-    this.clickMisses = this.clickMisses + 1
+    this.setState({
+      clickMisses: this.state.clickMisses + 1
+    })
   }
 
   startGame(){
@@ -174,7 +176,7 @@ class BaselineGame extends Component{
         <BaselineGameHud
           totalTargets={this.state.targetTotal}
           targetCount={this.state.targetCount}
-          targetMisses={'N/A'}
+          targetMisses={this.state.clickMisses}
           pause={this.state.pause}
           pauseGame={this.pauseGame}
           gameState={this.state.gameState}

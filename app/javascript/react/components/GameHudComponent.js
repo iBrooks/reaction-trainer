@@ -94,16 +94,28 @@ class GameHud extends Component {
     return(
         <div id='lowerNavPanel'>
           <div id='targetCount'>
+            <div className='gameHudLabel'>
+              Target count
+            </div>
             {this.props.targetCount}/{this.props.totalTargets}
           </div>
           <div id='targetMisses'>
+            <div className='gameHudLabel'>
+              Target misses
+            </div>
             {this.props.targetMisses}
           </div>
 
           <div id='targetPercentage'>
+            <div className='gameHudLabel'>
+              Target percentage
+            </div>
             {this.targetPercentage()}%
           </div>
           <div id='gameClock'>
+            <div className='gameHudLabel'>
+              Game time
+            </div>
             {this.state.time}
           </div>
           <div id='pauseButton' className={this.state.pauseButtonClass}>
