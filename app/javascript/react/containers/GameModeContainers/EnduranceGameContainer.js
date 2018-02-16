@@ -21,7 +21,8 @@ class BaselineGame extends Component{
       pauseScreen: 'hide',
       gameDifficulty: 0,
       userName: 'test',
-      time: '00:00'
+      time: '00:00',
+      targetExpiration: 1000
     }
     this.onHit = this.onHit.bind(this)
     this.onMiss = this.onMiss.bind(this)
@@ -83,23 +84,22 @@ class BaselineGame extends Component{
   }
   setExpire(){
     this.clearExpire()
-    this.expireTimer = setTimeout(()=>{ this.expireTarget()}, 1000)
+    this.expireTimer = setTimeout(()=>{ this.expireTarget()}, this.state.targetExpiration)
   }
   clearExpire(){
     clearTimeout(this.expireTimer)
   }
   expireTarget(){
-    if (this.state.targetMisses < 9) {
     this.setState({
       targetCount: this.state.targetCount + 1,
       targetMisses: this.state.targetMisses+ 1,
       location: this.newLocation()
     })
     this.setExpire()
-  } else {
-    this.clearExpire()
-    this.endGame()
-  }
+    if (this.state.targetMisses == 10) {
+      this.clearExpire()
+      this.endGame()
+    }
   }
 
   newLocation(){
@@ -115,10 +115,12 @@ class BaselineGame extends Component{
     this.setState({
       targetCount: this.state.targetCount + 1,
       targetHits: this.state.targetHits + 1,
-      location: this.newLocation()
+      location: this.newLocation(),
+      targetExpiration: this.state.targetExpiration - 2
     })
     this.startTargetTimer()
     this.setExpire()
+    console.log(this.state.targetExpiration)
   }
   onMiss(event){
     event.preventDefault()
@@ -157,6 +159,7 @@ class BaselineGame extends Component{
       gameState: 'ready',
       targetCount: 1,
       targetMisses: 0,
+      targetHits: 0,
       pauseScreen: 'hide',
       pause: false,
       location: this.newLocation()
