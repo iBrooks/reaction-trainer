@@ -10,7 +10,7 @@ class SelfStats extends Component {
       totalClicks: 578,
       totalTargetHits: 407,
       clickAccuracy: 70.4,
-      targetAccuracy: 87.3
+      targetAccuracy: .102
     }
   }
 
@@ -31,7 +31,7 @@ class SelfStats extends Component {
             {this.state.clickAccuracy}%
           </div>
           <div id='totalTargetAccuracySelf'>
-            {this.state.targetAccuracy}%
+            {this.state.targetAccuracy}
           </div>
           <div id='dataLabels'>
             <div className='dataLabel'>
@@ -41,7 +41,7 @@ class SelfStats extends Component {
               Targets hit
             </div>
             <div className='dataLabel'>
-              Target %
+              Avg. Hit
             </div>
             <div className='dataLabel'>
               Clicks

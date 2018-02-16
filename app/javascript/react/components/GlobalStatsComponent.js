@@ -14,17 +14,31 @@ class GlobalStats extends Component {
   render(){
     return(
       <div>
-        <div id='upperLeftOverlay'>
-          {this.state.upperRightContent}
+        <div id='globalStatsHolder'>
+          <div id='globalStat1'>
+            1,257
+          <div className='globalStatLabel'>
+            Total games played
+          </div>
         </div>
-        <div id='upperRightOverlay'>
-          {this.state.upperLeftContent}
+          <div id='globalStat2'>
+            2,341
+          <div className='globalStatLabel'>
+            Total targets hit
+          </div>
         </div>
-        <div id='lowerLeftOverlay'>
-          {this.state.lowerLeftContent}
+          <div id='globalStat3'>
+            .147
+          <div className='globalStatLabel'>
+            Average target hit
+          </div>
         </div>
-        <div id='lowerRightOverlay'>
-          {this.state.lowerRightContent}
+          <div id='globalStat4'>
+            76.4%
+          <div className='globalStatLabel'>
+            Global Accuracy
+          </div>
+        </div>
         </div>
       </div>
     )

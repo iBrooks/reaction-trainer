@@ -15,10 +15,13 @@ class BaselineGame extends Component{
       gameState: 'ready',
       targetCount: 1,
       targetMisses: 0,
+      targetHits: 0,
+      clickMisses: 0,
       pause: false,
       pauseScreen: 'hide',
       gameDifficulty: 0,
-      userName: 'test'
+      userName: 'test',
+      time: '00:00'
     }
     this.onHit = this.onHit.bind(this)
     this.onMiss = this.onMiss.bind(this)
@@ -36,6 +39,8 @@ class BaselineGame extends Component{
     this.setExpire = this.setExpire.bind(this)
     this.clearExpire = this.clearExpire.bind(this)
     this.expireTarget = this.expireTarget.bind(this)
+    this.convertMS = this.convertMS.bind(this)
+    this.passTime = this.passTime.bind(this)
 
     this.expire = null
 
@@ -84,12 +89,17 @@ class BaselineGame extends Component{
     clearTimeout(this.expireTimer)
   }
   expireTarget(){
+    if (this.state.targetMisses < 9) {
     this.setState({
       targetCount: this.state.targetCount + 1,
       targetMisses: this.state.targetMisses+ 1,
       location: this.newLocation()
     })
     this.setExpire()
+  } else {
+    this.clearExpire()
+    this.endGame()
+  }
   }
 
   newLocation(){
@@ -104,6 +114,7 @@ class BaselineGame extends Component{
     this.saveTargetTime()
     this.setState({
       targetCount: this.state.targetCount + 1,
+      targetHits: this.state.targetHits + 1,
       location: this.newLocation()
     })
     this.startTargetTimer()
@@ -111,7 +122,9 @@ class BaselineGame extends Component{
   }
   onMiss(event){
     event.preventDefault()
-    this.clickMisses = this.clickMisses + 1
+    this.setState({
+      clickMisses: this.state.clickMisses + 1
+    })
   }
 
   startGame(){
@@ -154,8 +167,26 @@ class BaselineGame extends Component{
     this.targetTimes = []
   }
   endGame(){
+    this.stopGameTimer()
     this.saveTargetTime()
     this.setState({gameState: 'ended'})
+  }
+  convertMS() {
+    let milliseconds = this.gameTime
+    var day, hour, minute, seconds;
+    seconds = Math.floor(milliseconds / 1000);
+    minute = Math.floor(seconds / 60);
+    seconds = seconds % 60;
+    hour = Math.floor(minute / 60);
+    minute = minute % 60;
+    day = Math.floor(hour / 24);
+    hour = hour % 24;
+    return (
+      minute.toString() + ':' + seconds.toString()
+    );
+  }
+  passTime(time){
+    this.setState({ time: time})
   }
   render(){
     let startScreenClass, endScreenClass
@@ -193,9 +224,12 @@ class BaselineGame extends Component{
           totalTargets={'∞'}
           targetCount={this.state.targetCount}
           targetMisses={this.state.targetMisses}
+          targetHits={this.state.targetHits}
           pause={this.state.pause}
           pauseGame={this.pauseGame}
           gameState={this.state.gameState}
+          clickMisses={this.state.clickMisses}
+          passTime={this.passTime}
         />
         <div id='coreDisplayPanel' className='container'>
           <div id='coreDisplayOverlay' className={overlayClass}>
@@ -209,6 +243,7 @@ class BaselineGame extends Component{
                 <FontAwesomeIcon id='exitButton' icon={faTimesCircle} size='4x' onClick={this.props.exitGame}/>
             </div>
             <div className={endScreenClass}>
+                <div id='endGameTime'>{this.state.time}</div>
                 <FontAwesomeIcon id='exitButton' icon={faTimesCircle} size='4x' onClick={this.props.exitGame}/>
                 <FontAwesomeIcon id='playButton'  icon={faRedoAlt} size='8x' onClick={this.restartGame}/>
             </div>

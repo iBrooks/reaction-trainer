@@ -31,6 +31,7 @@ class GameHud extends Component {
       this.setState({pauseButtonClass: 'show'})
     } else if (this.props.gameState == 'running' && nextProps.gameState == 'ended'){
       clearInterval(this.t)
+      this.props.passTime(this.state.time)
       this.setState({pauseButtonClass: 'hide'})
     } else if ((this.props.gameState == 'ended' || this.props.gameState == 'running') && nextProps.gameState == 'ready'){
       this.setState({
@@ -78,10 +79,12 @@ class GameHud extends Component {
   }
   targetPercentage(){
     let percentage
-    if (this.props.targetCount == 1 || this.props.gameType == 'Baseline'){
+    if ((this.props.targetCount == 1 && this.props.clickMisses == 0)){
       percentage = '---'
+    } else if(this.props.targetHits == 0){
+      percentage = '0'
     } else {
-      percentage = Math.round(((((this.props.targetCount - 1) - this.props.targetMisses)/(this.props.targetCount - 1)) * 100)*10)/10
+      percentage = Math.round((((this.props.targetHits)/(this.props.targetCount - 1 + this.props.clickMisses + this.props.targetMisses)) * 100)*10)/10
     }
     return(percentage)
   }
@@ -108,7 +111,7 @@ class GameHud extends Component {
 
           <div id='targetPercentage'>
             <div className='gameHudLabel'>
-              Target percentage
+              Accuracy
             </div>
             {this.targetPercentage()}%
           </div>

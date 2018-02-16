@@ -12,14 +12,15 @@ class BaselineGame extends Component{
     super(props)
     this.state = {
       location: this.newLocation(),
-      targetTotal: 2,
+      targetTotal: 30,
       gameState: 'ready',
       targetCount: 1,
       clickMisses: 0,
       pause: false,
       pauseScreen: 'hide',
       gameDifficulty: 0,
-      userName: 'test'
+      userName: 'test',
+      time: '00:00'
     }
     this.onHit = this.onHit.bind(this)
     this.onMiss = this.onMiss.bind(this)
@@ -34,6 +35,7 @@ class BaselineGame extends Component{
     this.startTargetTimer = this.startTargetTimer.bind(this)
     this.stopTargetTimer = this.stopTargetTimer.bind(this)
     this.saveTargetTime = this.saveTargetTime.bind(this)
+    this.passTime = this.passTime.bind(this)
 
     this.clickMisses = 0
 
@@ -137,9 +139,11 @@ class BaselineGame extends Component{
     this.targetTimes = []
   }
   endGame(){
-
     this.saveTargetTime()
     this.setState({gameState: 'ended'})
+  }
+  passTime(time){
+    this.setState({ time: time})
   }
   render(){
     let startScreenClass, endScreenClass
@@ -181,6 +185,7 @@ class BaselineGame extends Component{
           pauseGame={this.pauseGame}
           gameState={this.state.gameState}
           gameType={'Baseline'}
+          passTime={this.passTime}
         />
         <div id='coreDisplayPanel' className='container'>
           <div id='coreDisplayOverlay' className={overlayClass}>
@@ -194,6 +199,7 @@ class BaselineGame extends Component{
                 <FontAwesomeIcon id='exitButton' icon={faTimesCircle} size='4x' onClick={this.props.exitGame}/>
             </div>
             <div className={endScreenClass}>
+              <div id='endGameTime'>{this.state.time}</div>
                 <FontAwesomeIcon id='exitButton' icon={faTimesCircle} size='4x' onClick={this.props.exitGame}/>
                 <FontAwesomeIcon id='playButton'  icon={faRedoAlt} size='8x' onClick={this.restartGame}/>
             </div>
