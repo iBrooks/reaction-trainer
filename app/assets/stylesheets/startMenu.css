@@ -66,6 +66,7 @@
   line-height: 50px;
 }
 #challengeOption {
+  display: none;
   position:absolute;
   height: 50px;
   width: 282px;

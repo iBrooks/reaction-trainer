@@ -21,7 +21,7 @@ const StartMenu = (props) => {
       <div id='lowerNavPanel'>
         <div id='chooseTitle'>Select Mode</div>
         <div id='baselineOption' onClick={props.chooseBaseline} className={baselineOptionClass}>Baseline</div>
-        <div id='enduranceOption' onClick={props.chooseEndurance} className={enduranceOptionClass}>Endurance</div>
+        <div id='enduranceOption' onClick={props.chooseEndurance} className={enduranceOptionClass}>Challenge</div>
         <div id='challengeOption' onClick={props.chooseChallenge} className={challengeOptionClass}>Challenge</div>
       </div>
     <div id='coreDisplayPanel'>
