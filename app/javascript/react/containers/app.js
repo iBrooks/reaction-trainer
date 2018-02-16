@@ -3,7 +3,7 @@ import { Router, browserHistory, Route, IndexRoute } from 'react-router';
 import Menu from './MenuContainer'
 import Stats from './StatsContainer'
 import GameSelection from './GameSelectionContainer'
-
+import NavBar from '../components/NavBarComponent'
 
 class App extends Component {
   constructor(props) {
@@ -15,9 +15,10 @@ class App extends Component {
   render () {
     return(
       <Router history={browserHistory}>
-          {/* <Route path='/' component={Menu} />
-          <Route path='/stats' component={Stats} /> */}
-          <Route path='*' component={GameSelection} />
+        <Route path='/' component={NavBar}>
+          <IndexRoute component={GameSelection} />
+          <Route path='stats' component={Stats} />
+        </Route>
       </Router>
     )
   }
