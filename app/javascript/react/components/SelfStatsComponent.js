@@ -62,7 +62,6 @@ class SelfStats extends Component {
             Baseline Stats
           </div>
           <div>
-k
           </div>
           <div className='baselineStat'>
             <div className='baselineStatHolder'></div>
