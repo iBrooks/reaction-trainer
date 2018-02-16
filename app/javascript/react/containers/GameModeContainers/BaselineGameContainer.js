@@ -3,7 +3,7 @@ import { Router, browserHistory, Route, IndexRoute } from 'react-router';
 import Target from '../../components/TargetComponent'
 import Background from '../../components/BackgroundComponent'
 import StatAggregator from '../../components/StatAggregatorComponent'
-import GameHud from '../../components/GameHudComponent'
+import BaselineGameHud from '../../components/GameHudComponent'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import { faPlayCircle, faTimesCircle, faRedoAlt } from '@fortawesome/fontawesome-free-solid'
 
@@ -171,7 +171,7 @@ class BaselineGame extends Component{
           gameTime={this.gameTime}
           userName={this.state.userName}
         />
-        <GameHud
+        <BaselineGameHud
           totalTargets={this.state.targetTotal}
           targetCount={this.state.targetCount}
           targetMisses={'N/A'}

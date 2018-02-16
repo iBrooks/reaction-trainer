@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import { faBullseye, faExpandArrowsAlt, faExpand, faTimesCircle, faCrosshairs, faAdjust, faClock, faPauseCircle } from '@fortawesome/fontawesome-free-solid'
-class GameHud extends Component {
+class BaselineGameHud extends Component {
   constructor(props){
     super(props)
     this.state = {
@@ -94,16 +94,28 @@ class GameHud extends Component {
     return(
         <div id='lowerNavPanel'>
           <div id='targetCount'>
+            <div className='gameHudLabel'>
+              Target count
+            </div>
             {this.props.targetCount}/{this.props.totalTargets}
           </div>
           <div id='targetMisses'>
+            <div className='gameHudLabel'>
+              Missed clicks
+            </div>
             {this.props.targetMisses}
           </div>
 
           <div id='targetPercentage'>
+            <div className='gameHudLabel'>
+              Accuracy
+            </div>
             {this.targetPercentage()}%
           </div>
           <div id='gameClock'>
+            <div className='gameHudLabel'>
+              Game time
+            </div>
             {this.state.time}
           </div>
           <div id='pauseButton' className={this.state.pauseButtonClass}>
@@ -114,4 +126,4 @@ class GameHud extends Component {
   }
 }
 
-export default GameHud
+export default BaselineGameHud
