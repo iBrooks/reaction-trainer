@@ -203,6 +203,7 @@ class EnduranceGame extends Component{
           pauseGame={this.pauseGame}
           gameState={this.state.gameState}
           clickMisses={this.state.clickMisses}
+          targetExpiration={this.state.targetExpiration}
         />
         <div id='coreDisplayPanel' className='container'>
           <div id='coreDisplayOverlay' className={overlayClass}>
