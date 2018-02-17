@@ -112,7 +112,7 @@ class BaselineGame extends Component{
   endGame(){
     let gameStopTime = Date.now()
     let gameDuration = gameStopTime - this.gameStartTime - this.pauseDuration
-    debugger
+    
     this.setState({
       gameDuration: gameDuration,
       gameState: 'ended'

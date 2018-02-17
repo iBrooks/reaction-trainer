@@ -145,7 +145,7 @@ class EnduranceGame extends Component{
   endGame(){
     let gameStopTime = Date.now()
     let gameDuration = gameStopTime - this.gameStartTime - this.pauseDuration
-    debugger
+
     this.setState({gameState: 'ended'})
   }
   convertMS() {
