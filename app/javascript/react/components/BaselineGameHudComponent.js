@@ -31,7 +31,6 @@ class BaselineGameHud extends Component {
       this.setState({pauseButtonClass: 'show'})
     } else if (this.props.gameState == 'running' && nextProps.gameState == 'ended'){
       clearInterval(this.t)
-      this.props.passTime(this.state.time)
       this.setState({pauseButtonClass: 'hide'})
     } else if ((this.props.gameState == 'ended' || this.props.gameState == 'running') && nextProps.gameState == 'ready'){
       this.setState({
