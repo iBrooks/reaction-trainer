@@ -191,7 +191,7 @@ class EnduranceGame extends Component{
           targetTotal={this.state.targetCount}
           targetTimes={this.targetTimes}
           gameState={this.state.gameState}
-          gameType={'Endurance'}
+          gameType={'Challenge'}
           gameDifficulty={this.state.gameDifficulty}
           gameTime={this.state.gameDuration}
         />
