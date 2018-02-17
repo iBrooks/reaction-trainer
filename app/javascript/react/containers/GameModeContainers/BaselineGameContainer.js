@@ -43,7 +43,6 @@ class BaselineGame extends Component{
   }
 
   saveTargetTime(){
-    debugger
     let targetTime = this.targetStopTime - this.targetStartTime
     this.targetTimes.push(targetTime)
   }
