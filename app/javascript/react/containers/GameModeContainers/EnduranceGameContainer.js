@@ -136,6 +136,7 @@ class EnduranceGame extends Component{
       targetHits: 0,
       clickMisses: 0,
       pauseScreen: 'hide',
+      targetExpiration: 1000,
       pause: false,
       location: this.newLocation()
     })
