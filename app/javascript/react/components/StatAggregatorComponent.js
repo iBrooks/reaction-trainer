@@ -39,7 +39,6 @@ class StatAggregator extends Component {
     this.targetAccuracy = this.percentage(this.targetHits/this.targetTotal)
 
     if (nextProps.gameState == 'ended' && this.userName != '') {
-      debugger
       this.save()
     }
   }
@@ -62,6 +61,7 @@ class StatAggregator extends Component {
       },
       userName: this.userName
     }
+    debugger
     fetch('/api/v1/games', {
      credentials: 'same-origin',
      method: 'post',

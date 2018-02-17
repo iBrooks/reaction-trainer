@@ -20,9 +20,9 @@ class EnduranceGame extends Component{
       pause: false,
       pauseScreen: 'hide',
       gameDifficulty: 0,
-      userName: 'test',
-      time: '00:00',
-      targetExpiration: 1000
+      userName: '',
+      targetExpiration: 1000,
+      gameDuration: 0
     }
     this.onHit = this.onHit.bind(this)
     this.onMiss = this.onMiss.bind(this)
@@ -146,8 +146,10 @@ class EnduranceGame extends Component{
   endGame(){
     let gameStopTime = Date.now()
     let gameDuration = gameStopTime - this.gameStartTime - this.pauseDuration
-
-    this.setState({gameState: 'ended'})
+    this.setState({
+      gameState: 'ended',
+      gameDuration: gameDuration
+    })
   }
   convertMS() {
     let milliseconds
@@ -191,8 +193,7 @@ class EnduranceGame extends Component{
           gameState={this.state.gameState}
           gameType={'Endurance'}
           gameDifficulty={this.state.gameDifficulty}
-          gameTime={this.gameTime}
-          userName={this.state.userName}
+          gameTime={this.state.gameDuration}
         />
         <GameHud
           totalTargets={'∞'}
