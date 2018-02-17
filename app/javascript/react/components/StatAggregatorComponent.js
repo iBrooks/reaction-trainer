@@ -6,7 +6,6 @@ class StatAggregator extends Component {
     this.state = {}
     this.clickMisses = 0
     this.targetHits = 0
-    this.targetMisses = 0
     this.targetTotal = 0
     this.targetTimes = []
     this.gameType = ''
@@ -22,14 +21,13 @@ class StatAggregator extends Component {
     this.save = this.save.bind(this)
   }
   componentDidMount(){
-    if(document.getElementById('userName')){
+    if(document.getElementById('userInfo')){
       this.userName = document.getElementById('userName').innerHTML
     }
   }
   componentWillReceiveProps(nextProps){
     this.clickMisses = nextProps.clickMisses
     this.targetHits = nextProps.targetHits
-    this.targetMisses = nextProps.targetMisses
     this.targetTotal = nextProps.targetTotal
     this.targetTimes = nextProps.targetTimes
     this.gameType = nextProps.gameType
@@ -52,7 +50,6 @@ class StatAggregator extends Component {
       game: {
         clickMisses: this.clickMisses,
         targetHits: this.targetHits,
-        targetMisses: this.targetMisses,
         targetTotal: this.targetTotal,
         target_times: this.targetTimes,
         gameType: this.gameType,
@@ -64,6 +61,7 @@ class StatAggregator extends Component {
       },
       userName: this.userName
     }
+    debugger
     fetch('/api/v1/games', {
      credentials: 'same-origin',
      method: 'post',

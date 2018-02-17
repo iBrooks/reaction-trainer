@@ -10,7 +10,7 @@ class SelfStats extends Component {
       totalClicks: 578,
       totalTargetHits: 407,
       clickAccuracy: 70.4,
-      targetAccuracy: 87.3
+      targetAccuracy: .102
     }
   }
 
@@ -31,17 +31,17 @@ class SelfStats extends Component {
             {this.state.clickAccuracy}%
           </div>
           <div id='totalTargetAccuracySelf'>
-            {this.state.targetAccuracy}%
+            {this.state.targetAccuracy}
           </div>
           <div id='dataLabels'>
             <div className='dataLabel'>
               Games
             </div>
             <div className='dataLabel'>
-              Targets Hit
+              Targets hit
             </div>
             <div className='dataLabel'>
-              Target %
+              Avg. Hit
             </div>
             <div className='dataLabel'>
               Clicks
@@ -51,36 +51,58 @@ class SelfStats extends Component {
             </div>
           </div>
         </div>
-          <div id='longestTargetStreak'></div>
-          <div id='longestDayStreak'></div>
-          <div id='longestTargetStreak'></div>
-        {/* <div id='upperRightOverlay'>
-          {this.state.upperRightContent}
-        </div> */}
         <div id='lowerLeftOverlay'>
           <div id='baselineStatTitle'>
-            Baseline Stats
+            Baseline
           </div>
-          <div>
-k
+          <div id='baselineStatHolderBox'>
+            <div className='baselineStatHolder'>26.467</div>
+            <div className='baselineStatHolder'>.082</div>
+            <div className='baselineStatHolder'>.113</div>
+            <div className='baselineStatHolder'>81.7%</div>
           </div>
-          <div className='baselineStat'>
-            <div className='baselineStatHolder'></div>
-          </div>
-          <div className='baselineStat'>
-            <div className='baselineStatHolder'></div>
-          </div>
-          <div className='baselineStat'>
-            <div className='baselineStatHolder'></div>
-          </div>
-          <div className='baselineStat'>
-            <div className='baselineStatHolder'></div>
+          <div id='baselineStatBox'>
+            <div className='baselineStat'>
+              Fastest run
+            </div>
+            <div className='baselineStat'>
+              Fastest target hit
+            </div>
+            <div className='baselineStat'>
+              Average target hit
+            </div>
+            <div className='baselineStat'>
+              Click accuracy
+            </div>
           </div>
         </div>
         <div id='lowerRightOverlay'>
-          {this.state.lowerRightContent}
+          <div id='baselineStatTitle'>
+            Challenge
+          </div>
+          <div id='baselineStatHolderBox'>
+            <div className='baselineStatHolder'>2:33</div>
+            <div className='baselineStatHolder'>146</div>
+            <div className='baselineStatHolder'>.097</div>
+            <div className='baselineStatHolder'>87.3%</div>
+          </div>
+          <div id='baselineStatBox'>
+            <div className='baselineStat'>
+              Longest run
+            </div>
+            <div className='baselineStat'>
+              Most target hits
+            </div>
+            <div className='baselineStat'>
+              Average target hit
+            </div>
+            <div className='baselineStat'>
+              Click accuracy
+            </div>
+          </div>
         </div>
       </div>
+
     )
   }
 }

@@ -136,16 +136,42 @@
   line-height: 30px;
 
 }
+#baselineStatBox {
+  position: absolute;
+  left: 9px;
+  bottom: 9px;
+  height: 257px;
+  width: 200px;
+  z-index: 1;
+}
 .baselineStat {
-
+height: 30px;
+width: 100%;
+border-radius: 4px;
+background-color: #313E50;
+color: #C1CAD6;
+margin-bottom: 39px;
+line-height: 30px;
+text-align: left;
+padding-left: 9px;
+}
+#baselineStatHolderBox {
+  position: absolute;
+  width: 60px;
+  bottom: 0px;
+  right: 9px;
+  z-index: 2;
 }
 .baselineStatHolder {
-  height: 50px;
-  width: 50px;
+  line-height: 60px;
+  text-align: center;
+  height: 60px;
+  width: 60px;
   border-radius: 50%;
   background-color: #987284;
   -webkit-box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.5);
   color: #C1CAD6;
+  margin-bottom: 11px;
 }
 #lowerLeftOverlay {
   position: absolute;

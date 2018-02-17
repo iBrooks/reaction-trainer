@@ -6,7 +6,7 @@ import { faBullseye } from '@fortawesome/fontawesome-free-solid'
 const NavBar = (props) => {
   let navBar
   if (document.getElementById('userInfo')) {
-    let userName = document.getElementById('userInfo').innerHTML
+    let userName = document.getElementById('userName').innerHTML
     // let userPhoto = document.getElementById('userPhoto').innerHTML
     navBar = (
       <div>

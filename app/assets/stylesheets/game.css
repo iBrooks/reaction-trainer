@@ -51,4 +51,79 @@ right: 9px;
 .showTarget{
   display: grid;
 }
-
+#targetCount {
+  top: 9px;
+  position: absolute;
+  right: 9px;
+  height: 60px;
+  width: 60px;
+  background-color: #313E50;
+  border-radius: 50%;
+  z-index: 2;
+  -webkit-box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.5);
+  line-height: 60px;
+  text-align: center;
+}
+#targetMisses {
+  top:78px;
+  position: absolute;
+  right: 9px;
+  height: 60px;
+  width: 60px;
+  background-color: #313E50;
+  border-radius: 50%;
+  z-index: 2;
+  -webkit-box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.5);
+  line-height: 60px;
+  text-align: center;
+}
+#targetPercentage {
+  position: absolute;
+  right: 9px;
+  top: 147px;
+  width: 60px;
+  height: 60px;
+  background-color: #313E50;
+  border-radius: 50%;
+  z-index: 2;
+  -webkit-box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.5);
+  line-height: 60px;
+  text-align: center;
+}
+#gameClock{
+  position: absolute;
+  right: 9px;
+  top: 216px;
+  width: 60px;
+  height: 60px;
+  background-color: #313E50;
+  border-radius: 50%;
+  z-index: 2;
+  -webkit-box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.5);
+  line-height: 60px;
+  text-align: center;
+}
+#pauseButton {
+  position: absolute;
+  top: 285px;
+  right: 13px;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  line-height: 50px;
+  text-align: center;
+}
+.gameHudLabel {
+  display: block;
+  position:absolute;
+  top: 15px;
+  right: 69px;
+width:200px;
+height: 30px;
+background-color: #C1CAD6;
+border-radius: 4px;
+color: #313E50;
+line-height: 30px;
+text-align: center;
+z-index: 1;
+}

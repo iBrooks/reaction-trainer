@@ -29,7 +29,7 @@ class GameSelection extends Component {
     } else if (mode == 'Endurance') {
       description = 'Non-stop targets that expire. How long can you last?'
     } else {
-      description = 'Coming Soon!'
+      description = 'Non-stop targets that expire. How long can you last?'
     }
     this.setState({
       mode: mode,
@@ -38,9 +38,9 @@ class GameSelection extends Component {
   }
   startGame(event){
     event.preventDefault()
-    if (!(this.state.mode == 'Challenge')) {
+    // if (!(this.state.mode == 'Challenge')) {
     this.setState({ ready: true })
-  }
+  // }
   }
   exitGame(){
     this.setState({ ready: false })
@@ -57,7 +57,7 @@ class GameSelection extends Component {
     }
     let chooseEndurance = (event) => {
       event.preventDefault()
-      this.chooseMode('Endurance')
+      this.chooseMode('Challenge')
     }
     if (this.state.ready) {
       if (this.state.mode == 'Baseline') {
@@ -66,7 +66,7 @@ class GameSelection extends Component {
             exitGame={this.exitGame}
           />
         )
-      } else if (this.state.mode == 'Endurance') {
+      } else if (this.state.mode == 'Challenge') {
         content = (
           <EnduranceGame
             exitGame={this.exitGame}

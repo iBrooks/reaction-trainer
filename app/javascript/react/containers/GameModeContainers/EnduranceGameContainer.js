@@ -7,7 +7,7 @@ import GameHud from '../../components/GameHudComponent'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import { faPlayCircle, faTimesCircle, faRedoAlt } from '@fortawesome/fontawesome-free-solid'
 
-class BaselineGame extends Component{
+class EnduranceGame extends Component{
   constructor(props){
     super(props)
     this.state = {
@@ -15,10 +15,14 @@ class BaselineGame extends Component{
       gameState: 'ready',
       targetCount: 1,
       targetMisses: 0,
+      targetHits: 0,
+      clickMisses: 0,
       pause: false,
       pauseScreen: 'hide',
       gameDifficulty: 0,
-      userName: 'test'
+      userName: '',
+      targetExpiration: 1000,
+      gameDuration: 0
     }
     this.onHit = this.onHit.bind(this)
     this.onMiss = this.onMiss.bind(this)
@@ -28,57 +32,32 @@ class BaselineGame extends Component{
     this.pauseGame = this.pauseGame.bind(this)
     this.resumeGame = this.resumeGame.bind(this)
     this.restartGame = this.restartGame.bind(this)
-    this.startGameTimer = this.startGameTimer.bind(this)
-    this.stopGameTimer = this.stopGameTimer.bind(this)
-    this.startTargetTimer = this.startTargetTimer.bind(this)
-    this.stopTargetTimer = this.stopTargetTimer.bind(this)
     this.saveTargetTime = this.saveTargetTime.bind(this)
     this.setExpire = this.setExpire.bind(this)
     this.clearExpire = this.clearExpire.bind(this)
     this.expireTarget = this.expireTarget.bind(this)
+    this.convertMS = this.convertMS.bind(this)
 
     this.expire = null
 
-    this.clickMisses = 0
-
-    this.gameTimer = null
-    this.gameTime = 0
-
-    this.targetTimer = null
-    this.targetTime = 0
     this.targetTimes = []
+
+    this.targetStartTime = 0
+    this.targetStopTime = 0
+    this.gameStartTime = 0
+    this.pauseStartTime = 0
+    this.pauseDuration = 0
   }
   componentWillUnmount(){
-    clearInterval(this.gameTimer)
-    clearInterval(this.targetTimer)
     this.clearExpire()
   }
-  startGameTimer(){
-    this.gameTimer = setInterval(()=>{
-       this.gameTime = this.gameTime + 1
-    }, 1)
-  }
-  stopGameTimer(){
-    clearInterval(this.gameTimer)
-  }
-
-  startTargetTimer(){
-    this.targetTimer = setInterval(()=>{
-       this.targetTime = this.targetTime + 1
-    }, 1)
-  }
-  stopTargetTimer(){
-    clearInterval(this.targetTimer)
-    this.targetTime = 0
-  }
   saveTargetTime(){
-    clearInterval(this.targetTimer)
-    this.targetTimes.push(this.targetTime)
-    this.targetTime = 0
+    let targetTime = this.targetStopTime - this.targetStartTime
+    this.targetTimes.push(targetTime)
   }
   setExpire(){
     this.clearExpire()
-    this.expireTimer = setTimeout(()=>{ this.expireTarget()}, 1000)
+    this.expireTimer = setTimeout(()=>{ this.expireTarget()}, this.state.targetExpiration)
   }
   clearExpire(){
     clearTimeout(this.expireTimer)
@@ -89,7 +68,13 @@ class BaselineGame extends Component{
       targetMisses: this.state.targetMisses+ 1,
       location: this.newLocation()
     })
+    this.targetStartTime = Date.now()
     this.setExpire()
+    if (this.state.targetMisses == 10) {
+      this.gameStopTime = Date.now()
+      this.clearExpire()
+      this.endGame()
+    }
   }
 
   newLocation(){
@@ -101,28 +86,32 @@ class BaselineGame extends Component{
 
   onHit(event){
     event.preventDefault()
+    this.targetStopTime = Date.now()
     this.saveTargetTime()
     this.setState({
       targetCount: this.state.targetCount + 1,
-      location: this.newLocation()
+      targetHits: this.state.targetHits + 1,
+      location: this.newLocation(),
+      targetExpiration: this.state.targetExpiration - 2
     })
-    this.startTargetTimer()
+    this.targetStartTime = Date.now()
     this.setExpire()
   }
   onMiss(event){
     event.preventDefault()
-    this.clickMisses = this.clickMisses + 1
+    this.setState({
+      clickMisses: this.state.clickMisses + 1
+    })
   }
 
   startGame(){
     this.setState({gameState: 'running'})
-    this.startGameTimer()
-    this.startTargetTimer()
+    this.targetStartTime = Date.now()
+    this.gameStartTime = Date.now()
     this.setExpire()
   }
   pauseGame(){
-    this.stopGameTimer()
-    this.stopTargetTimer()
+    this.pauseStartTime = Date.now()
     this.clearExpire()
     this.setState({
       pause: true,
@@ -135,8 +124,8 @@ class BaselineGame extends Component{
       pauseScreen: 'hide',
       location: this.newLocation()
     })
-    this.startGameTimer()
-    this.startTargetTimer()
+    this.pauseDuration += Date.now() - this.pauseStartTime
+    this.targetStartTime = Date.now()
     this.setExpire()
   }
   restartGame(){
@@ -144,18 +133,37 @@ class BaselineGame extends Component{
       gameState: 'ready',
       targetCount: 1,
       targetMisses: 0,
+      targetHits: 0,
+      clickMisses: 0,
       pauseScreen: 'hide',
+      targetExpiration: 1000,
       pause: false,
       location: this.newLocation()
     })
-    this.clickMisses = 0
-    this.gameTime = 0
-    this.targetTime = 0
+    this.pauseDuration = 0
     this.targetTimes = []
   }
   endGame(){
-    this.saveTargetTime()
-    this.setState({gameState: 'ended'})
+    let gameStopTime = Date.now()
+    let gameDuration = gameStopTime - this.gameStartTime - this.pauseDuration
+    this.setState({
+      gameState: 'ended',
+      gameDuration: gameDuration
+    })
+  }
+  convertMS() {
+    let milliseconds
+    var day, hour, minute, seconds;
+    seconds = Math.floor(milliseconds / 1000);
+    minute = Math.floor(seconds / 60);
+    seconds = seconds % 60;
+    hour = Math.floor(minute / 60);
+    minute = minute % 60;
+    day = Math.floor(hour / 24);
+    hour = hour % 24;
+    return (
+      minute.toString() + ':' + seconds.toString()
+    );
   }
   render(){
     let startScreenClass, endScreenClass
@@ -178,24 +186,25 @@ class BaselineGame extends Component{
     return(
       <div>
         <StatAggregator
-          clickMisses={this.clickMisses}
-          targetHits={(this.state.targetCount - this.state.targetMisses)}
-          targetMisses={this.state.targetMisses}
+          clickMisses={this.state.clickMisses}
+          targetHits={this.state.targetHits}
           targetTotal={this.state.targetCount}
           targetTimes={this.targetTimes}
           gameState={this.state.gameState}
           gameType={'Endurance'}
           gameDifficulty={this.state.gameDifficulty}
-          gameTime={this.gameTime}
-          userName={this.state.userName}
+          gameTime={this.state.gameDuration}
         />
         <GameHud
           totalTargets={'∞'}
           targetCount={this.state.targetCount}
           targetMisses={this.state.targetMisses}
+          targetHits={this.state.targetHits}
           pause={this.state.pause}
           pauseGame={this.pauseGame}
           gameState={this.state.gameState}
+          clickMisses={this.state.clickMisses}
+          targetExpiration={this.state.targetExpiration}
         />
         <div id='coreDisplayPanel' className='container'>
           <div id='coreDisplayOverlay' className={overlayClass}>
@@ -209,6 +218,7 @@ class BaselineGame extends Component{
                 <FontAwesomeIcon id='exitButton' icon={faTimesCircle} size='4x' onClick={this.props.exitGame}/>
             </div>
             <div className={endScreenClass}>
+                <div id='endGameTime'>{this.state.time}</div>
                 <FontAwesomeIcon id='exitButton' icon={faTimesCircle} size='4x' onClick={this.props.exitGame}/>
                 <FontAwesomeIcon id='playButton'  icon={faRedoAlt} size='8x' onClick={this.restartGame}/>
             </div>
@@ -228,9 +238,4 @@ class BaselineGame extends Component{
   }
 }
 
-export default BaselineGame
-
-
-{/* <div className='small-1 columns'>
-  <FontAwesomeIcon icon={faCrosshairs} size="2x" /> {Math.round(((this.state.hitCount/this.state.count) * 100)*10)/10}
-</div> */}
+export default EnduranceGame
