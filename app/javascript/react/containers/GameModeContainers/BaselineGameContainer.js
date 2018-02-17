@@ -43,8 +43,9 @@ class BaselineGame extends Component{
   }
 
   saveTargetTime(){
+    debugger
     let targetTime = this.targetStopTime - this.targetStartTime
-    this.targetTimes.push(this.targetTime)
+    this.targetTimes.push(targetTime)
   }
 
   newLocation(){
@@ -78,7 +79,8 @@ class BaselineGame extends Component{
 
   startGame(){
     this.setState({gameState: 'running'})
-    this.targetStartTime, this.gameStartTime = Date.now()
+    this.targetStartTime = Date.now()
+    this.gameStartTime = Date.now()
   }
   pauseGame(){
     this.pauseStartTime = Date.now()
