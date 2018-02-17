@@ -112,7 +112,7 @@ class BaselineGame extends Component{
   endGame(){
     let gameStopTime = Date.now()
     let gameDuration = gameStopTime - this.gameStartTime - this.pauseDuration
-    
+
     this.setState({
       gameDuration: gameDuration,
       gameState: 'ended'
@@ -139,9 +139,8 @@ class BaselineGame extends Component{
     return(
       <div>
         <StatAggregator
-          clickMisses={this.clickMisses}
+          clickMisses={this.state.clickMisses}
           targetHits={this.state.targetCount}
-          targetMisses={0}
           targetTotal={this.state.targetTotal}
           targetTimes={this.targetTimes}
           gameState={this.state.gameState}

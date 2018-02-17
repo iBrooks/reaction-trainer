@@ -184,9 +184,8 @@ class EnduranceGame extends Component{
     return(
       <div>
         <StatAggregator
-          clickMisses={this.clickMisses}
-          targetHits={(this.state.targetCount - this.state.targetMisses)}
-          targetMisses={this.state.targetMisses}
+          clickMisses={this.state.clickMisses}
+          targetHits={this.state.targetHits}
           targetTotal={this.state.targetCount}
           targetTimes={this.targetTimes}
           gameState={this.state.gameState}
