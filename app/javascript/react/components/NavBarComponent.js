@@ -10,9 +10,10 @@ const NavBar = (props) => {
     // let userPhoto = document.getElementById('userPhoto').innerHTML
     navBar = (
       <div>
+        <a href='users/sign_out'>
         <div id='signOutLinkDiv'>
-          <a href='users/sign_out'>X</a>
-        </div>
+          X
+        </div></a>
         <div id='userNameDiv'>
           {userName}
         </div>
@@ -26,8 +27,8 @@ const NavBar = (props) => {
   } else {
     navBar =(
       <div id='navBar'>
-        <a href='users/sign_up'><div id='signUpLinkDiv'>Sign Up</div></a>
-        <a href='users/sign_in'><div id='signInLinkDiv'>Sign In</div></a>
+        <a href='users/auth/facebook'><div id='signUpLinkDiv'>Sign Up</div></a>
+        <a href='users/auth/facebook'><div id='signInLinkDiv'>Sign In</div></a>
       </div>
     )
   }
