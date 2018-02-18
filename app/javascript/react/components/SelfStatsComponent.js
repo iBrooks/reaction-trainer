@@ -153,6 +153,7 @@ class SelfStats extends Component {
   showGraphs(){
     let content = (
       <div>
+        <div id='globalLineChartBox'>
       <Chart
         chartType="LineChart"
           data={this.careerChartData()}
@@ -160,14 +161,16 @@ class SelfStats extends Component {
             {
               title: 'Career',
               curveType: 'function',
-              legend: { position: 'bottom' }
+              legend: { position: 'bottom' },
+              backgroundColor: '#C1CAD6'
             }
           }
           graph_id="globalLineChart"
-          width="482px"
-          height="154px"
-          legend_toggle
+          width="464px"
+          height="136px"
       />
+    </div>
+      <div id='baselineLineChartBox'>
       <Chart
         chartType="LineChart"
           data={this.baselineChartData()}
@@ -175,14 +178,16 @@ class SelfStats extends Component {
             {
               title: 'Baseline',
               curveType: 'function',
-              legend: { position: 'bottom' }
+              legend: { position: 'bottom' },
+              backgroundColor: '#C1CAD6'
             }
           }
           graph_id="baselineLineChart"
-          width="482px"
-          height="154px"
-          legend_toggle
+          width="464px"
+          height="136px"
       />
+      </div>
+      <div id='challengeLineChartBox'>
       <Chart
         chartType="LineChart"
           data={this.challengeChartData()}
@@ -190,14 +195,15 @@ class SelfStats extends Component {
             {
               title: 'Challenge',
               curveType: 'function',
-              legend: { position: 'bottom' }
+              legend: { position: 'bottom' },
+              backgroundColor: '#C1CAD6'
             }
           }
           graph_id="challengeLineChart"
-          width="482px"
-          height="154px"
-          legend_toggle
+          width="464px"
+          height="136px"
       />
+    </div>
     </div>
     )
     this.setState({
