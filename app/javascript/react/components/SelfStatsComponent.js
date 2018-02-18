@@ -207,31 +207,37 @@ class SelfStats extends Component {
     })
   }
   careerChartData(){
-    [
-    ['Games', 'Accuracy'],
-    ["1",  66.7],
-    ["2",  78.5],
-    ['3',  79.7],
-    ['4',  82.3]
-  ]
+    let i = 0
+    let formattedArray = this.state.careerChartData.accuracy.map(accuracy => {
+      i = i + 1
+      return(
+        [i.toString(), accuracy]
+      )
+    })
+    formattedArray.unshift(['Games', 'Accuracy'])
+    return formattedArray
   }
   baselineChartData(){
-    [
-    ['Games', 'Fastest Time'],
-    ['1',  1000],
-    ['2',  1170],
-    ['3',  660],
-    ['4',  1030]
-  ]
+    let i = 0
+    let formattedArray = this.state.baselineChartData.times.map(time => {
+      i = i + 1
+      return(
+        [i.toString(), parseInt(time)/1000]
+      )
+    })
+    formattedArray.unshift(['Games', 'Time'])
+    return formattedArray
   }
   challengeChartData(){
-    [
-    ['Games', 'Most Targets'],
-    ['1',  1000],
-    ['2',  1170],
-    ['3',  660],
-    ['4',  1030]
-  ]
+    let i = 0
+    let formattedArray = this.state.challengeChartData.hits.map(hits => {
+      i = i + 1
+      return(
+        [i.toString(), parseInt(hits)]
+      )
+    })
+    formattedArray.unshift(['Games', 'Hits'])
+    return formattedArray
   }
   getData(){
     fetch('/api/v1/games', {
@@ -257,7 +263,7 @@ class SelfStats extends Component {
         totalStats: data.totalStats,
         baselineStats: data.baselineStats,
         challengeStats: data.challengeStats,
-        globalChartData: data.globalChartData,
+        careerChartData: data.careerChartData,
         baselineChartData: data.baselineChartData,
         challengeChartData: data.challengeChartData,
         user: true

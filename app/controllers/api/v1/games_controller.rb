@@ -38,7 +38,7 @@ class Api::V1::GamesController < ApplicationController
           averageHit: current_user.average_challenge_hit,
           accuracy: current_user.challenge_accuracy
         },
-        globalChartData: {
+        careerChartData: {
           accuracy: current_user.games.pluck(:clickAccuracy)
         },
         baselineChartData: {
