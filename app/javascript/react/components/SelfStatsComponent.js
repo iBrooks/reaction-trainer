@@ -12,8 +12,28 @@ class SelfStats extends Component {
       clickAccuracy: 70.4,
       targetAccuracy: .102
     }
-  }
 
+  }
+  componentDidMount() {
+    fetch('/api/v1/games', {
+     credentials: 'same-origin',
+     method: 'get',
+     body: JSON.stringify(formPayload),
+     headers: {
+       'Content-Type': 'application/json',
+       // 'X-Requested-With': 'XMLHttpRequest',
+       // 'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')
+       }
+    })
+    .then(response => {
+      if (!(response.ok || response.no_content)) {
+        throw Error(response.statusText)
+      }
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  }
   render(){
     return(
       <div>

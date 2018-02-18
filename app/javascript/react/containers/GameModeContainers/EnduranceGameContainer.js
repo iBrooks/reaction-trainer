@@ -22,7 +22,9 @@ class EnduranceGame extends Component{
       gameDifficulty: 0,
       userName: '',
       targetExpiration: 1000,
-      gameDuration: 0
+      gameDuration: 0,
+      fastestHit: 0,
+      averageHit: 0
     }
     this.onHit = this.onHit.bind(this)
     this.onMiss = this.onMiss.bind(this)
@@ -146,24 +148,18 @@ class EnduranceGame extends Component{
   endGame(){
     let gameStopTime = Date.now()
     let gameDuration = gameStopTime - this.gameStartTime - this.pauseDuration
+    let fastestHit = Math.min(...this.targetTimes)
+    let averageHit = Math.round((this.targetTimes.reduce((a, b) => { return a + b }))/this.targetTimes.length)
+    debugger
     this.setState({
       gameState: 'ended',
-      gameDuration: gameDuration
+      gameDuration: gameDuration,
+      fastestHit: fastestHit,
+      averageHit: averageHit
     })
   }
   convertMS() {
-    let milliseconds
-    var day, hour, minute, seconds;
-    seconds = Math.floor(milliseconds / 1000);
-    minute = Math.floor(seconds / 60);
-    seconds = seconds % 60;
-    hour = Math.floor(minute / 60);
-    minute = minute % 60;
-    day = Math.floor(hour / 24);
-    hour = hour % 24;
-    return (
-      minute.toString() + ':' + seconds.toString()
-    );
+    
   }
   render(){
     let startScreenClass, endScreenClass
@@ -218,7 +214,9 @@ class EnduranceGame extends Component{
                 <FontAwesomeIcon id='exitButton' icon={faTimesCircle} size='4x' onClick={this.props.exitGame}/>
             </div>
             <div className={endScreenClass}>
-                <div id='endGameTime'>{this.state.time}</div>
+                <div id='endGameTime'>{this.state.gameDuration}</div>
+                <div id='endGameFastestHit'>{this.state.fastestHit}</div>
+                <div id='endGameAverageHit'>{this.state.averageHit}</div>
                 <FontAwesomeIcon id='exitButton' icon={faTimesCircle} size='4x' onClick={this.props.exitGame}/>
                 <FontAwesomeIcon id='playButton'  icon={faRedoAlt} size='8x' onClick={this.restartGame}/>
             </div>
