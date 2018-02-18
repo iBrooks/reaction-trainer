@@ -68,6 +68,7 @@ class EnduranceGame extends Component{
     this.setState({
       targetCount: this.state.targetCount + 1,
       targetMisses: this.state.targetMisses+ 1,
+      clickMisses: this.state.clickMisses + 1,
       location: this.newLocation()
     })
     this.targetStartTime = Date.now()
@@ -159,7 +160,7 @@ class EnduranceGame extends Component{
     })
   }
   convertMS() {
-    
+
   }
   render(){
     let startScreenClass, endScreenClass

@@ -29,14 +29,14 @@ class Api::V1::GamesController < ApplicationController
     new_baseline_games = current_user.baseline_games.to_i + 1
     new_baseline_total_hits = current_user.baseline_total_hits.to_i + total_hits
     new_baseline_hit_sum = current_user.baseline_hit_sum.to_i + target_times.sum
-    new_average_baseline_hit = (new_baseline_hit_sum / new_baseline_total_hits).round
+    new_average_baseline_hit = (new_baseline_hit_sum.to_f/new_baseline_total_hits.to_f).round
     new_baseline_total_clicks = current_user.baseline_total_clicks.to_i + total_clicks
-    new_baseline_accuracy = ((new_baseline_total_hits/new_baseline_total_clicks) * 100).round(1)
+    new_baseline_accuracy = ((new_baseline_total_hits.to_f/new_baseline_total_clicks.to_f) * 100).round(1)
     new_fastest_baseline = current_user.fastest_baseline
     if (new_fastest_baseline == nil)
       new_fastest_baseline = gameTime
     else
-      if (gameTime < new_fastest_baseline)
+      if (gameTime.to_i < new_fastest_baseline.to_i)
         new_fastest_baseline = gameTime
       end
     end
@@ -44,7 +44,7 @@ class Api::V1::GamesController < ApplicationController
     if (new_fastest_baseline_hit == nil)
       new_fastest_baseline_hit = target_times.min
     else
-      if (target_times.min < new_fastest_baseline_hit)
+      if (target_times.min < new_fastest_baseline_hit.to_i)
         new_fastest_baseline_hit = target_times.min
       end
     end
@@ -63,15 +63,15 @@ class Api::V1::GamesController < ApplicationController
     new_challenge_games = current_user.challenge_games.to_i + 1
     new_challenge_total_hits = current_user.challenge_total_hits.to_i + total_hits
     new_challenge_hit_sum = current_user.challenge_hit_sum.to_i + target_times.sum
-    new_average_challenge_hit = (new_challenge_hit_sum / new_challenge_total_hits).round
+    new_average_challenge_hit = (new_challenge_hit_sum.to_f/new_challenge_total_hits.to_f).round
     new_challenge_total_clicks = current_user.challenge_total_clicks.to_i + total_clicks
-    new_challenge_accuracy = ((new_challenge_total_hits/new_challenge_total_clicks) * 100).round(1)
-    new_challenge_average_hit_count = new_challenge_total_hits/new_challenge_games.round
+    new_challenge_accuracy = ((new_challenge_total_hits.to_f/new_challenge_total_clicks.to_f) * 100).round(1)
+    new_challenge_average_hit_count = (new_challenge_total_hits.to_f/new_challenge_games.to_f).round
     new_most_challenge_hits = current_user.most_challenge_hits
     if new_most_challenge_hits ==  nil
       new_most_challenge_hits = total_hits
     else
-      if (total_hits > new_most_challenge_hits)
+      if (total_hits.to_i > new_most_challenge_hits.to_i)
         new_most_challenge_hits = total_hits
       end
     end
@@ -90,9 +90,9 @@ class Api::V1::GamesController < ApplicationController
     new_total_games = current_user.games.count
     new_total_hits = current_user.total_hits.to_i + total_hits
     new_hit_sum = current_user.hit_sum.to_i + target_times.sum
-    new_average_hit = (new_hit_sum / new_total_hits).round
+    new_average_hit = (new_hit_sum.to_f/new_total_hits.to_f).round
     new_total_clicks = current_user.total_clicks.to_i + total_clicks
-    new_total_accuracy = ((new_total_hits/new_total_clicks) * 100).round(1)
+    new_total_accuracy = ((new_total_hits.to_f/new_total_clicks.to_f) * 100).round(1)
     current_user.update(
       total_games: new_total_games,
       total_hits: new_total_hits,
