@@ -29,6 +29,12 @@ class User < ApplicationRecord
       end
     end
   end
+  # def baseline_games(user)
+  #   # user.games.where(:gameType = 'Baseline')
+  # end
+  # def challenge_games(user)
+  #   user.games.where("gameType = 'Challenge'")
+  # end
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

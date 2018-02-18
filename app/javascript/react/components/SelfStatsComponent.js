@@ -258,7 +258,7 @@ class SelfStats extends Component {
       return response.json()
     })
     .then(data => {
-
+      debugger
       this.setState({
         totalStats: {
           games: data.total_games,
