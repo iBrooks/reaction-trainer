@@ -15,11 +15,8 @@ class User < ApplicationRecord
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
       user.password = Devise.friendly_token[0,20]
-      user.user_name = auth.info.name   # assuming the user model has a name
-      # user.image = auth.info.image # assuming the user model has an image
-      # If you are using confirmable and the provider(s) you use validate emails,
-      # uncomment the line below to skip the confirmation emails.
-      # user.skip_confirmation!
+      user.user_name = auth.info.name
+      user.profile_photo = auth.info.image
     end
   end
   def self.new_with_session(params, session)
@@ -29,18 +26,7 @@ class User < ApplicationRecord
       end
     end
   end
-  # def baseline_games(user)
-  #   # user.games.where(:gameType = 'Baseline')
-  # end
-  # def challenge_games(user)
-  #   user.games.where("gameType = 'Challenge'")
-  # end
 
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, omniauth_providers: %i[facebook]
 end
-
-
-# , format: { with: /\A\S+\z/, message: 'can\'t have whitespace' }

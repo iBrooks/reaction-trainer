@@ -43,6 +43,7 @@
   height:69px;
   border-radius: 4px;
   background-color: #C1CAD6;
+  color: #3D5A80;
 }
 #userNameDiv {
   position: absolute;
@@ -133,7 +134,7 @@
 #signUpLinkDiv {
   position: absolute;
   bottom: 9px;
-  left: 9px;
+  right: 9px;
   height: 30px;
   width: 136px;
   background-color: #C1CAD6;
@@ -155,9 +156,15 @@
   text-align: center;
   line-height: 30px;
 }
-#userNameDiv {
-
+#facebookLogo {
+  position: absolute;
+  right: 5px;
+  bottom: 0px;
 }
-#userPhotoDiv {
-
+#userPhoto {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  border-radius: 4px;
 }

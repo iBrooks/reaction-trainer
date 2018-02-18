@@ -1,13 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import { faBullseye } from '@fortawesome/fontawesome-free-solid'
+import { faBullseye, } from '@fortawesome/fontawesome-free-solid'
+import { faFacebookF } from '@fortawesome/fontawesome-free-brands'
 
 const NavBar = (props) => {
   let navBar
   if (document.getElementById('userInfo')) {
     let userName = document.getElementById('userName').innerHTML
-    // let userPhoto = document.getElementById('userPhoto').innerHTML
+    let userPhoto = document.getElementById('userPhoto').innerHTML
     navBar = (
       <div>
         <a href='users/sign_out'>
@@ -18,6 +19,7 @@ const NavBar = (props) => {
           {userName}
         </div>
         <div id='userPhotoDiv'>
+          <img src={userPhoto} id='userPhoto' />
         </div>
         <Link to='/stats'>
           <div id='myStatsLinkDiv'>Stats</div>
@@ -27,8 +29,10 @@ const NavBar = (props) => {
   } else {
     navBar =(
       <div id='navBar'>
-        <a href='users/auth/facebook'><div id='signUpLinkDiv'>Sign Up</div></a>
-        <a href='users/auth/facebook'><div id='signInLinkDiv'>Sign In</div></a>
+        <div id='userPhotoDiv'>
+          <FontAwesomeIcon icon={faFacebookF} size='4x' id='facebookLogo' />
+        </div>
+        <a href='users/auth/facebook'><div id='userNameDiv'>Connect</div></a>
       </div>
     )
   }
