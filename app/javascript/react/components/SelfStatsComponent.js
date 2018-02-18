@@ -6,11 +6,6 @@ class SelfStats extends Component {
   constructor(props){
     super(props)
     this.state = {
-      totalGames: 47,
-      totalClicks: 578,
-      totalTargetHits: 407,
-      clickAccuracy: 70.4,
-      targetAccuracy: .102,
       content: null,
       chooseNumbersClass: 'selectedOption',
       chooseGraphsClass: 'unSelectedOption',
@@ -258,27 +253,13 @@ class SelfStats extends Component {
       return response.json()
     })
     .then(data => {
-      debugger
       this.setState({
-        totalStats: {
-          games: data.total_games,
-          hits: data.total_hits,
-          averageHit: data.average_hit,
-          clicks: data.total_clicks,
-          accuracy: data.total_accuracy
-        },
-        baselineStats: {
-          fastest: data.fastest_baseline,
-          fastestHit: data.fastest_baseline_hit,
-          averageHit: data.average_baseline_hit,
-          accuracy: data.baseline_accuracy
-        },
-        challengeStats: {
-          mostHits: data.most_challenge_hits,
-          averageHits: data.challenge_average_hit_count,
-          averageHit: data.average_challenge_hit,
-          accuracy: data.challenge_accuracy
-        },
+        totalStats: data.totalStats,
+        baselineStats: data.baselineStats,
+        challengeStats: data.challengeStats,
+        globalChartData: data.globalChartData,
+        baselineChartData: data.baselineChartData,
+        challengeChartData: data.challengeChartData,
         user: true
       })
       this.showNumbers()
