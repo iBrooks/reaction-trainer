@@ -10,10 +10,12 @@ class SelfStats extends Component {
       totalClicks: 578,
       totalTargetHits: 407,
       clickAccuracy: 70.4,
-      targetAccuracy: .102
+      targetAccuracy: .102,
+      content: null
     }
     this.getData = this.getData.bind(this)
     this.noUser = this.noUser.bind(this)
+    this.yesUser = this.yesUser.bind(this)
   }
   componentDidMount() {
     if (document.getElementById('userInfo')) {
@@ -23,7 +25,102 @@ class SelfStats extends Component {
     }
   }
   noUser(){
-    
+    let content = (
+      <div></div>
+    )
+    this.setState({
+      content: content
+    })
+  }
+  yesUser(){
+    this.setState({
+      content: (<div>
+      <div id='upperSection'>
+        <div id='totalGamesSelf'>
+          {this.state.totalStats.games}
+        </div>
+        <div id='totalClicksSelf'>
+          {this.state.totalStats.clicks}
+         </div>
+        <div id='totalTargetHitsSelf'>
+          {this.state.totalStats.hits}
+        </div>
+        <div id='totalClickAccuracySelf'>
+          {this.state.totalStats.accuracy}%
+        </div>
+        <div id='totalTargetAccuracySelf'>
+          {this.state.totalStats.averageHit}ms
+        </div>
+        <div id='dataLabels'>
+          <div className='dataLabel'>
+            Games
+          </div>
+          <div className='dataLabel'>
+            Targets hit
+          </div>
+          <div className='dataLabel'>
+            Avg. Hit
+          </div>
+          <div className='dataLabel'>
+            Clicks
+          </div>
+          <div className='dataLabel'>
+            Accuracy
+          </div>
+        </div>
+      </div>
+      <div id='lowerLeftOverlay'>
+        <div id='baselineStatTitle'>
+          Baseline
+        </div>
+        <div id='baselineStatHolderBox'>
+          <div className='baselineStatHolder'>{this.state.baselineStats.fastest/1000}s</div>
+          <div className='baselineStatHolder'>{this.state.baselineStats.fastestHit}ms</div>
+          <div className='baselineStatHolder'>{this.state.baselineStats.averageHit}ms</div>
+          <div className='baselineStatHolder'>{this.state.baselineStats.accuracy}%</div>
+        </div>
+        <div id='baselineStatBox'>
+          <div className='baselineStat'>
+            Fastest run
+          </div>
+          <div className='baselineStat'>
+            Fastest target hit
+          </div>
+          <div className='baselineStat'>
+            Average target hit
+          </div>
+          <div className='baselineStat'>
+            Click accuracy
+          </div>
+        </div>
+      </div>
+      <div id='lowerRightOverlay'>
+        <div id='baselineStatTitle'>
+          Challenge
+        </div>
+        <div id='baselineStatHolderBox'>
+          <div className='baselineStatHolder'>{this.state.challengeStats.mostHits}</div>
+          <div className='baselineStatHolder'>{this.state.challengeStats.averageHits}</div>
+          <div className='baselineStatHolder'>{this.state.challengeStats.averageHit}ms</div>
+          <div className='baselineStatHolder'>{this.state.challengeStats.accuracy}%</div>
+        </div>
+        <div id='baselineStatBox'>
+          <div className='baselineStat'>
+            Most targets hit
+          </div>
+          <div className='baselineStat'>
+            Average targets hit
+          </div>
+          <div className='baselineStat'>
+            Average target hit
+          </div>
+          <div className='baselineStat'>
+            Click accuracy
+          </div>
+        </div>
+      </div>
+    </div>)
+    })
   }
   getData(){
     fetch('/api/v1/games', {
@@ -45,17 +142,29 @@ class SelfStats extends Component {
       return response.json()
     })
     .then(data => {
+
       this.setState({
-        careerStats: {
-          totalGames: data.
+        totalStats: {
+          games: data.total_games,
+          hits: data.total_hits,
+          averageHit: data.average_hit,
+          clicks: data.total_clicks,
+          accuracy: data.total_accuracy
         },
-        baselinStats: {
-
-        }
+        baselineStats: {
+          fastest: data.fastest_baseline,
+          fastestHit: data.fastest_baseline_hit,
+          averageHit: data.average_baseline_hit,
+          accuracy: data.baseline_accuracy
+        },
         challengeStats: {
-
+          mostHits: data.most_challenge_hits,
+          averageHits: data.challenge_average_hit_count,
+          averageHit: data.average_challenge_hit,
+          accuracy: data.challenge_accuracy
         }
       })
+      this.yesUser()
     })
     .catch(error => {
       console.log(error)
@@ -63,92 +172,7 @@ class SelfStats extends Component {
   }
   render(){
     return(
-      <div>
-        <div id='upperSection'>
-          <div id='totalGamesSelf'>
-            {this.state.totalGames}
-          </div>
-          <div id='totalClicksSelf'>
-            {this.state.totalClicks}
-           </div>
-          <div id='totalTargetHitsSelf'>
-            {this.state.totalTargetHits}
-          </div>
-          <div id='totalClickAccuracySelf'>
-            {this.state.clickAccuracy}%
-          </div>
-          <div id='totalTargetAccuracySelf'>
-            {this.state.targetAccuracy}
-          </div>
-          <div id='dataLabels'>
-            <div className='dataLabel'>
-              Games
-            </div>
-            <div className='dataLabel'>
-              Targets hit
-            </div>
-            <div className='dataLabel'>
-              Avg. Hit
-            </div>
-            <div className='dataLabel'>
-              Clicks
-            </div>
-            <div className='dataLabel'>
-              Accuracy
-            </div>
-          </div>
-        </div>
-        <div id='lowerLeftOverlay'>
-          <div id='baselineStatTitle'>
-            Baseline
-          </div>
-          <div id='baselineStatHolderBox'>
-            <div className='baselineStatHolder'>26.467</div>
-            <div className='baselineStatHolder'>.082</div>
-            <div className='baselineStatHolder'>.113</div>
-            <div className='baselineStatHolder'>81.7%</div>
-          </div>
-          <div id='baselineStatBox'>
-            <div className='baselineStat'>
-              Fastest run
-            </div>
-            <div className='baselineStat'>
-              Fastest target hit
-            </div>
-            <div className='baselineStat'>
-              Average target hit
-            </div>
-            <div className='baselineStat'>
-              Click accuracy
-            </div>
-          </div>
-        </div>
-        <div id='lowerRightOverlay'>
-          <div id='baselineStatTitle'>
-            Challenge
-          </div>
-          <div id='baselineStatHolderBox'>
-            <div className='baselineStatHolder'>2:33</div>
-            <div className='baselineStatHolder'>146</div>
-            <div className='baselineStatHolder'>.097</div>
-            <div className='baselineStatHolder'>87.3%</div>
-          </div>
-          <div id='baselineStatBox'>
-            <div className='baselineStat'>
-              Longest run
-            </div>
-            <div className='baselineStat'>
-              Most target hits
-            </div>
-            <div className='baselineStat'>
-              Average target hit
-            </div>
-            <div className='baselineStat'>
-              Click accuracy
-            </div>
-          </div>
-        </div>
-      </div>
+        this.state.content
     )
   }
 }
