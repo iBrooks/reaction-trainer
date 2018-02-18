@@ -61,7 +61,6 @@ class StatAggregator extends Component {
       },
       userName: this.userName
     }
-    debugger
     fetch('/api/v1/games', {
      credentials: 'same-origin',
      method: 'post',

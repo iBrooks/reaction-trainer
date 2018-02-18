@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180217213431) do
+ActiveRecord::Schema.define(version: 20180217225437) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,7 +58,6 @@ ActiveRecord::Schema.define(version: 20180217213431) do
     t.integer "fastest_baseline_hit"
     t.integer "average_baseline_hit"
     t.float "baseline_accuracy"
-    t.integer "longest_challenge"
     t.integer "most_challenge_hits"
     t.integer "average_challenge_hit"
     t.float "challenge_accuracy"
@@ -67,6 +66,16 @@ ActiveRecord::Schema.define(version: 20180217213431) do
     t.integer "average_hit"
     t.integer "total_clicks"
     t.float "total_accuracy"
+    t.integer "hit_sum"
+    t.integer "baseline_hit_sum"
+    t.integer "baseline_total_clicks"
+    t.integer "baseline_total_hits"
+    t.integer "baseline_games"
+    t.integer "challenge_hit_sum"
+    t.integer "challenge_total_clicks"
+    t.integer "challenge_total_hits"
+    t.integer "challenge_average_hit_count"
+    t.integer "challenge_games"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
