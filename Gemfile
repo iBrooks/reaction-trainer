@@ -58,3 +58,4 @@ gem 'webpacker', '~> 3.2'
 gem 'omniauth-facebook'
 gem 'dotenv-rails'
 gem 'omniauth-github'
+gem "active_model_serializers"

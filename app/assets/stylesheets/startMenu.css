@@ -39,17 +39,17 @@
   width: 300px;
   border-radius: 4px;
   left: 0px;
-  top: 9px;
+  top: 5px;
   font-size: 25pt;
   text-align: center;
 }
 #baselineOption {
   position:absolute;
+  left: 9px;
+  top: 58px;
   height: 50px;
   width: 282px;
   border-radius: 4px;
-  left: 9px;
-  top: 68px;
   font-size: 25pt;
   text-align: center;
   line-height: 50px;
@@ -60,7 +60,7 @@
   width: 282px;
   border-radius: 4px;
   left: 9px;
-  top: 127px;
+  top: 117px;
   font-size: 25pt;
   text-align: center;
   line-height: 50px;
