@@ -12,13 +12,23 @@ class SelfStats extends Component {
       clickAccuracy: 70.4,
       targetAccuracy: .102
     }
-
+    this.getData = this.getData.bind(this)
+    this.noUser = this.noUser.bind(this)
   }
   componentDidMount() {
+    if (document.getElementById('userInfo')) {
+      this.getData()
+    } else {
+      this.noUser()
+    }
+  }
+  noUser(){
+    
+  }
+  getData(){
     fetch('/api/v1/games', {
      credentials: 'same-origin',
      method: 'get',
-     body: JSON.stringify(formPayload),
      headers: {
        'Content-Type': 'application/json',
        // 'X-Requested-With': 'XMLHttpRequest',
@@ -29,6 +39,23 @@ class SelfStats extends Component {
       if (!(response.ok || response.no_content)) {
         throw Error(response.statusText)
       }
+      return response
+    })
+    .then(response => {
+      return response.json()
+    })
+    .then(data => {
+      this.setState({
+        careerStats: {
+          totalGames: data.
+        },
+        baselinStats: {
+
+        }
+        challengeStats: {
+
+        }
+      })
     })
     .catch(error => {
       console.log(error)
@@ -122,7 +149,6 @@ class SelfStats extends Component {
           </div>
         </div>
       </div>
-
     )
   }
 }

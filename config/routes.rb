@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resource :games, only: [:index, :create]
+      resource :games, only: [:show, :create]
       resource :users, only: [:show]
     end
   end

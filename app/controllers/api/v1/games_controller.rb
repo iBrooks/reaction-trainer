@@ -16,6 +16,15 @@ class Api::V1::GamesController < ApplicationController
       render json: {message: 'Username does not match current user'}, status: :unauthorized
     end
   end
+  def show
+    if current_user
+      render json: current_user
+    else
+      render json: {message: 'not logged in'}, status: :unauthorized
+    end
+  end
+
+
   def update_baseline(total_hits, total_clicks, target_times, gameTime)
     new_baseline_games = current_user.baseline_games.to_i + 1
     new_baseline_total_hits = current_user.baseline_total_hits.to_i + total_hits
