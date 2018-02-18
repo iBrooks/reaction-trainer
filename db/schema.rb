@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180217225437) do
+ActiveRecord::Schema.define(version: 20180218192241) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,12 +25,12 @@ ActiveRecord::Schema.define(version: 20180217225437) do
     t.datetime "updated_at", null: false
     t.integer "target_times", default: [], array: true
     t.integer "clickMisses"
-    t.integer "targetHits"
+    t.integer "target_hits"
     t.integer "targetMisses"
     t.integer "targetTotal"
-    t.string "gameType"
+    t.string "game_type"
     t.string "gameDifficulty"
-    t.string "gameTime"
+    t.string "game_time"
     t.integer "clickTotal"
     t.float "clickAccuracy"
     t.float "targetAccuracy"

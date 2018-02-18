@@ -1,37 +1,78 @@
 import React, { Component } from 'react';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import { faBullseye, faExpandArrowsAlt, faExpand, faTimesCircle, faCrosshairs, faAdjust, faClock, faPauseCircle } from '@fortawesome/fontawesome-free-solid'
-
+import { Chart } from 'react-google-charts'
 class SelfStats extends Component {
   constructor(props){
     super(props)
     this.state = {
-      totalGames: 47,
-      totalClicks: 578,
-      totalTargetHits: 407,
-      clickAccuracy: 70.4,
-      targetAccuracy: .102
+      content: null,
+      chooseNumbersClass: 'selectedOption',
+      chooseGraphsClass: 'unSelectedOption',
+      user: false
+    }
+    this.getData = this.getData.bind(this)
+    this.noUser = this.noUser.bind(this)
+    this.yesUser = this.yesUser.bind(this)
+    this.showNumbers = this.showNumbers.bind(this)
+    this.showGraphs = this.showGraphs.bind(this)
+    this.careerChartData = this.careerChartData.bind(this)
+    this.baselineChartData = this.baselineChartData.bind(this)
+    this.baselineChartData = this.baselineChartData.bind(this)
+  }
+  componentDidMount() {
+    if (document.getElementById('userInfo')) {
+      this.getData()
+    } else {
+      this.noUser()
     }
   }
-
-  render(){
-    return(
+  noUser(){
+    let content = (
+      <div></div>
+    )
+    this.setState({
+      content: content,
+      user: false
+    })
+  }
+  yesUser(){
+    if (this.state.user){
+      return(
+      <div id='displaySwitchBox'>
+        <div id='displaySwitchTitle'>
+          Select Display
+        </div>
+        <div id='chooseNumbers' className={this.state.chooseNumbersClass} onClick={this.showNumbers}>
+          Numbers
+        </div>
+        <div id='chooseGraphs' className={this.state.chooseGraphsClass} onClick={this.showGraphs}>
+          Graphs
+        </div>
+      </div>
+    )
+    } else {
+      return null
+    }
+  }
+  showNumbers(){
+    let content = (
       <div>
         <div id='upperSection'>
           <div id='totalGamesSelf'>
-            {this.state.totalGames}
+            {this.state.totalStats.games}
           </div>
           <div id='totalClicksSelf'>
-            {this.state.totalClicks}
+            {this.state.totalStats.clicks}
            </div>
           <div id='totalTargetHitsSelf'>
-            {this.state.totalTargetHits}
+            {this.state.totalStats.hits}
           </div>
           <div id='totalClickAccuracySelf'>
-            {this.state.clickAccuracy}%
+            {this.state.totalStats.accuracy}%
           </div>
           <div id='totalTargetAccuracySelf'>
-            {this.state.targetAccuracy}
+            {this.state.totalStats.averageHit}ms
           </div>
           <div id='dataLabels'>
             <div className='dataLabel'>
@@ -56,10 +97,10 @@ class SelfStats extends Component {
             Baseline
           </div>
           <div id='baselineStatHolderBox'>
-            <div className='baselineStatHolder'>26.467</div>
-            <div className='baselineStatHolder'>.082</div>
-            <div className='baselineStatHolder'>.113</div>
-            <div className='baselineStatHolder'>81.7%</div>
+            <div className='baselineStatHolder'>{this.state.baselineStats.fastest/1000}s</div>
+            <div className='baselineStatHolder'>{this.state.baselineStats.fastestHit}ms</div>
+            <div className='baselineStatHolder'>{this.state.baselineStats.averageHit}ms</div>
+            <div className='baselineStatHolder'>{this.state.baselineStats.accuracy}%</div>
           </div>
           <div id='baselineStatBox'>
             <div className='baselineStat'>
@@ -81,17 +122,17 @@ class SelfStats extends Component {
             Challenge
           </div>
           <div id='baselineStatHolderBox'>
-            <div className='baselineStatHolder'>2:33</div>
-            <div className='baselineStatHolder'>146</div>
-            <div className='baselineStatHolder'>.097</div>
-            <div className='baselineStatHolder'>87.3%</div>
+            <div className='baselineStatHolder'>{this.state.challengeStats.mostHits}</div>
+            <div className='baselineStatHolder'>{this.state.challengeStats.averageHits}</div>
+            <div className='baselineStatHolder'>{this.state.challengeStats.averageHit}ms</div>
+            <div className='baselineStatHolder'>{this.state.challengeStats.accuracy}%</div>
           </div>
           <div id='baselineStatBox'>
             <div className='baselineStat'>
-              Longest run
+              Most targets hit
             </div>
             <div className='baselineStat'>
-              Most target hits
+              Average targets hit
             </div>
             <div className='baselineStat'>
               Average target hit
@@ -102,7 +143,149 @@ class SelfStats extends Component {
           </div>
         </div>
       </div>
-
+    )
+    this.setState({
+      content: content,
+      chooseNumbersClass: 'selectedOption',
+      chooseGraphsClass: 'unSelectedOption'
+    })
+  }
+  showGraphs(){
+    let content = (
+      <div>
+        <div id='globalLineChartBox'>
+      <Chart
+        chartType="LineChart"
+          data={this.careerChartData()}
+          options={
+            {
+              title: 'Career',
+              curveType: 'function',
+              legend: { position: 'bottom' },
+              backgroundColor: '#C1CAD6'
+            }
+          }
+          graph_id="globalLineChart"
+          width="464px"
+          height="136px"
+      />
+    </div>
+      <div id='baselineLineChartBox'>
+      <Chart
+        chartType="LineChart"
+          data={this.baselineChartData()}
+          options={
+            {
+              title: 'Baseline',
+              curveType: 'function',
+              legend: { position: 'bottom' },
+              backgroundColor: '#C1CAD6'
+            }
+          }
+          graph_id="baselineLineChart"
+          width="464px"
+          height="136px"
+      />
+      </div>
+      <div id='challengeLineChartBox'>
+      <Chart
+        chartType="LineChart"
+          data={this.challengeChartData()}
+          options={
+            {
+              title: 'Challenge',
+              curveType: 'function',
+              legend: { position: 'bottom' },
+              backgroundColor: '#C1CAD6'
+            }
+          }
+          graph_id="challengeLineChart"
+          width="464px"
+          height="136px"
+      />
+    </div>
+    </div>
+    )
+    this.setState({
+      content: content,
+      chooseNumbersClass:'unSelectedOption',
+      chooseGraphsClass: 'selectedOption'
+    })
+  }
+  careerChartData(){
+    let i = 0
+    let formattedArray = this.state.careerChartData.accuracy.map(accuracy => {
+      i = i + 1
+      return(
+        [i.toString(), accuracy]
+      )
+    })
+    formattedArray.unshift(['Games', 'Accuracy'])
+    return formattedArray
+  }
+  baselineChartData(){
+    let i = 0
+    let formattedArray = this.state.baselineChartData.times.map(time => {
+      i = i + 1
+      return(
+        [i.toString(), parseInt(time)/1000]
+      )
+    })
+    formattedArray.unshift(['Games', 'Time'])
+    return formattedArray
+  }
+  challengeChartData(){
+    let i = 0
+    let formattedArray = this.state.challengeChartData.hits.map(hits => {
+      i = i + 1
+      return(
+        [i.toString(), parseInt(hits)]
+      )
+    })
+    formattedArray.unshift(['Games', 'Hits'])
+    return formattedArray
+  }
+  getData(){
+    fetch('/api/v1/games', {
+     credentials: 'same-origin',
+     method: 'get',
+     headers: {
+       'Content-Type': 'application/json',
+       // 'X-Requested-With': 'XMLHttpRequest',
+       // 'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')
+       }
+    })
+    .then(response => {
+      if (!(response.ok || response.no_content)) {
+        throw Error(response.statusText)
+      }
+      return response
+    })
+    .then(response => {
+      return response.json()
+    })
+    .then(data => {
+      this.setState({
+        totalStats: data.totalStats,
+        baselineStats: data.baselineStats,
+        challengeStats: data.challengeStats,
+        careerChartData: data.careerChartData,
+        baselineChartData: data.baselineChartData,
+        challengeChartData: data.challengeChartData,
+        user: true
+      })
+      this.showNumbers()
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  }
+  render(){
+    return(
+      <div>
+      {this.state.content}
+      {this.yesUser()}
+    </div>
     )
   }
 }

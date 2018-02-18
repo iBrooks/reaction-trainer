@@ -49,12 +49,12 @@ class StatAggregator extends Component {
     let formPayload = {
       game: {
         clickMisses: this.clickMisses,
-        targetHits: this.targetHits,
+        target_hits: this.targetHits,
         targetTotal: this.targetTotal,
         target_times: this.targetTimes,
-        gameType: this.gameType,
+        game_type: this.gameType,
         gameDifficulty: this.gameDifficulty,
-        gameTime: this.gameTime,
+        game_time: this.gameTime,
         clickTotal: this.clickTotal,
         clickAccuracy: this.clickAccuracy,
         targetAccuracy: this.targetAccuracy,

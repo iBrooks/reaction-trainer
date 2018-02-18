@@ -21,7 +21,9 @@ class BaselineGame extends Component{
       gameDifficulty: 0,
       userName: 'test',
       time: '00:00',
-      gameDuration: 0
+      gameDuration: 0,
+      fastestHit: 0,
+      averageHit: 0
     }
     this.onHit = this.onHit.bind(this)
     this.onMiss = this.onMiss.bind(this)
@@ -32,6 +34,7 @@ class BaselineGame extends Component{
     this.resumeGame = this.resumeGame.bind(this)
     this.restartGame = this.restartGame.bind(this)
     this.saveTargetTime = this.saveTargetTime.bind(this)
+    this.convertMS = this.convertMS.bind(this)
 
     this.targetTimes = []
 
@@ -112,10 +115,17 @@ class BaselineGame extends Component{
   endGame(){
     let gameStopTime = Date.now()
     let gameDuration = gameStopTime - this.gameStartTime - this.pauseDuration
+    let fastestHit = Math.min(...this.targetTimes)
+    let averageHit = Math.round((this.targetTimes.reduce((a, b) => { return a + b }))/this.targetTimes.length)
     this.setState({
       gameDuration: gameDuration,
-      gameState: 'ended'
+      gameState: 'ended',
+      fastestHit: fastestHit,
+      averageHit: averageHit
     })
+  }
+  convertMS(milliseconds) {
+    
   }
   render(){
     let startScreenClass, endScreenClass
@@ -167,7 +177,9 @@ class BaselineGame extends Component{
                 <FontAwesomeIcon id='exitButton' icon={faTimesCircle} size='4x' onClick={this.props.exitGame}/>
             </div>
             <div className={endScreenClass}>
-              <div id='endGameTime'>{this.state.gameDuration}</div>
+              <div id='endGameTime'>{this.convertMS(this.state.gameDuration)}</div>
+              <div id='endGameFastestHit'>{this.state.fastestHit}</div>
+              <div id='endGameAverageHit'>{this.state.averageHit}</div>
                 <FontAwesomeIcon id='exitButton' icon={faTimesCircle} size='4x' onClick={this.props.exitGame}/>
                 <FontAwesomeIcon id='playButton'  icon={faRedoAlt} size='8x' onClick={this.restartGame}/>
             </div>
