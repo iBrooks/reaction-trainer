@@ -151,7 +151,6 @@ class EnduranceGame extends Component{
     let gameDuration = gameStopTime - this.gameStartTime - this.pauseDuration
     let fastestHit = Math.min(...this.targetTimes)
     let averageHit = Math.round((this.targetTimes.reduce((a, b) => { return a + b }))/this.targetTimes.length)
-    debugger
     this.setState({
       gameState: 'ended',
       gameDuration: gameDuration,

@@ -13,9 +13,9 @@
     <%- if current_user -%>
       <div id='userInfo' class="hide">
         <div id='userName'><%= current_user.user_name %></div>
+        <div id='userPhoto' class='hide'><%= current_user.profile_photo %></div>
       </div>
-      <!-- <div id='userPhoto' class='hide'>
-      </div> -->
+
     <%- end -%>
   <%= yield %>
 
