@@ -40,13 +40,13 @@ class GameHud extends Component {
         <div id='lowerNavPanel'>
           <div id='targetCount'>
             <div className='gameHudLabel'>
-              Target count
+              Targets Hit
             </div>
-            {this.props.targetCount}/{this.props.totalTargets}
+            {this.props.targetHits}
           </div>
           <div id='targetMisses'>
             <div className='gameHudLabel'>
-              Target misses
+              Targets missed
             </div>
             {this.props.targetMisses}
           </div>
