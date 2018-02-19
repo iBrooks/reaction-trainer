@@ -214,7 +214,7 @@ class SelfStats extends Component {
   }
   careerChartData(){
     let i = 0
-    let formattedArray = this.state.careerChartData.accuracy.map(accuracy => {
+    let formattedArray = this.state.careerChartData.accuracy.reverse().map(accuracy => {
       i = i + 1
       return(
         [i.toString(), accuracy]
@@ -225,7 +225,7 @@ class SelfStats extends Component {
   }
   baselineChartData(){
     let i = 0
-    let formattedArray = this.state.baselineChartData.times.map(time => {
+    let formattedArray = this.state.baselineChartData.times.reverse().map(time => {
       i = i + 1
       return(
         [i.toString(), parseInt(time)/1000]
@@ -236,7 +236,7 @@ class SelfStats extends Component {
   }
   challengeChartData(){
     let i = 0
-    let formattedArray = this.state.challengeChartData.hits.map(hits => {
+    let formattedArray = this.state.challengeChartData.hits.reverse().map(hits => {
       i = i + 1
       return(
         [i.toString(), parseInt(hits)]
