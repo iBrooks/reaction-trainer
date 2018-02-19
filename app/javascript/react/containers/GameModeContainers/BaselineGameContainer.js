@@ -12,7 +12,7 @@ class BaselineGame extends Component{
     super(props)
     this.state = {
       location: this.newLocation(),
-      targetTotal: 5,
+      targetTotal: 30,
       gameState: 'ready',
       targetCount: 1,
       clickMisses: 0,

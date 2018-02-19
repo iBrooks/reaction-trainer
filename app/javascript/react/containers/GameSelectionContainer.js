@@ -29,7 +29,7 @@ class GameSelection extends Component {
     } else if (mode == 'Endurance') {
       description = 'Non-stop targets that expire increasingly quickly. How many can you hit before you miss 10?'
     } else {
-      description = 'Infinite targets. How many can you hit before you miss ten?'
+      description = 'Infinite targets. How many can you hit before you miss 10?'
     }
     this.setState({
       mode: mode,
