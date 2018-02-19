@@ -18,7 +18,10 @@ class SelfStats extends Component {
     this.showGraphs = this.showGraphs.bind(this)
     this.careerChartData = this.careerChartData.bind(this)
     this.baselineChartData = this.baselineChartData.bind(this)
-    this.baselineChartData = this.baselineChartData.bind(this)
+    this.challengeChartData = this.challengeChartData.bind(this)
+    this.showCareerGraph = this.showCareerGraph.bind(this)
+    this.showBaselineGraph = this.showBaselineGraph.bind(this)
+    this.showChallengeGraph = this.showChallengeGraph.bind(this)
   }
   componentDidMount() {
     if (document.getElementById('userInfo')) {
@@ -29,7 +32,7 @@ class SelfStats extends Component {
   }
   noUser(){
     let content = (
-      <div></div>
+      <div id='coreDisplayOverlay'>Please log in</div>
     )
     this.setState({
       content: content,
@@ -150,10 +153,8 @@ class SelfStats extends Component {
       chooseGraphsClass: 'unSelectedOption'
     })
   }
-  showGraphs(){
-    let content = (
-      <div>
-        <div id='globalLineChartBox'>
+  showCareerGraph(){
+    return(
       <Chart
         chartType="LineChart"
           data={this.careerChartData()}
@@ -169,8 +170,10 @@ class SelfStats extends Component {
           width="464px"
           height="136px"
       />
-    </div>
-      <div id='baselineLineChartBox'>
+    )
+  }
+  showBaselineGraph(){
+    return(
       <Chart
         chartType="LineChart"
           data={this.baselineChartData()}
@@ -186,8 +189,10 @@ class SelfStats extends Component {
           width="464px"
           height="136px"
       />
-      </div>
-      <div id='challengeLineChartBox'>
+    )
+  }
+  showChallengeGraph(){
+    return(
       <Chart
         chartType="LineChart"
           data={this.challengeChartData()}
@@ -203,7 +208,36 @@ class SelfStats extends Component {
           width="464px"
           height="136px"
       />
-    </div>
+    )
+  }
+  showGraphs(){
+    let careerChart, baselineChart, challengeChart
+    if (this.state.careerChartData.accuracy.length < 4) {
+      careerChart = 'Play ' + (4 - this.state.careerChartData.accuracy.length) + ' more games.'
+    } else {
+      careerChart = this.showCareerGraph()
+    }
+    if (this.state.baselineChartData.times.length < 2) {
+      baselineChart = 'Play ' + (2 - this.state.baselineChartData.accuracy.length) + ' more baseline games.'
+    } else {
+      careerChart = this.showBaselineGraph()
+    }
+    if (this.state.challengeChartData.hits.length < 4) {
+      challengeChart = 'Play ' + (2 - this.state.challengeChartData.accuracy.length) + ' more challenge games.'
+    } else {
+      challengeChart = this.showCareerGraph()
+    }
+    let content = (
+      <div>
+        <div id='globalLineChartBox'>
+          {careerChart}
+        </div>
+        <div id='baselineLineChartBox'>
+          {baselineChart}
+        </div>
+        <div id='challengeLineChartBox'>
+          {challengeChart}
+        </div>
     </div>
     )
     this.setState({
