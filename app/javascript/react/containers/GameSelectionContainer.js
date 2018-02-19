@@ -27,9 +27,9 @@ class GameSelection extends Component {
     if (mode == 'Baseline') {
       description = '30 static targets. How quickly can you hit them all?'
     } else if (mode == 'Endurance') {
-      description = 'Non-stop targets that expire. How long can you last?'
+      description = 'Non-stop targets that expire increasingly quickly. How many can you hit before you miss 10?'
     } else {
-      description = 'Non-stop targets that expire. How long can you last?'
+      description = 'Infinite targets. How many can you hit before you miss ten?'
     }
     this.setState({
       mode: mode,

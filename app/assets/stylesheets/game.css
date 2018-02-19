@@ -180,7 +180,7 @@ right: 9px;
   display: grid;
 }
 #targetCount {
-  top: 9px;
+  top: 34px;
   position: absolute;
   right: 9px;
   height: 60px;
@@ -193,7 +193,7 @@ right: 9px;
   text-align: center;
 }
 #targetMisses {
-  top:78px;
+  top:103px;
   position: absolute;
   right: 9px;
   height: 60px;
@@ -208,7 +208,7 @@ right: 9px;
 #targetPercentage {
   position: absolute;
   right: 9px;
-  top: 147px;
+  top: 172px;
   width: 60px;
   height: 60px;
   background-color: #313E50;
@@ -221,7 +221,7 @@ right: 9px;
 #gameClock{
   position: absolute;
   right: 9px;
-  top: 216px;
+  top: 241px;
   width: 60px;
   height: 60px;
   background-color: #313E50;
@@ -233,9 +233,11 @@ right: 9px;
 }
 #pauseButton {
   position: absolute;
-  top: 285px;
-  right: 13px;
-  height: 50px;
+  bottom: 17px;
+  right: 0;
+  left: 0;
+  margin: auto;
+  height: 30px;
   width: 50px;
   border-radius: 50%;
   line-height: 50px;

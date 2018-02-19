@@ -122,13 +122,13 @@ class BaselineGame extends Component{
       gameState: 'ended',
       fastestHit: fastestHit,
       averageHit: averageHit,
-      newBest: this.newBest()
+      newBest: this.newBest(gameDuration)
     })
   }
-  newBest(){
+  newBest(gameDuration){
     if (document.getElementById('userInfo')) {
     let oldBest = document.getElementById('baselineBest').innerHTML
-      if (this.state.gameDuration < parseInt(oldBest) || parseInt(oldBest) == 0 ){
+      if (gameDuration < parseInt(oldBest) || parseInt(oldBest) == 0 ){
         return 'show'
       } else {
         return 'hide'
