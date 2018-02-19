@@ -40,13 +40,13 @@ class GameHud extends Component {
         <div id='lowerNavPanel'>
           <div id='targetCount'>
             <div className='gameHudLabel'>
-              Target count
+              Targets Hit
             </div>
-            {this.props.targetCount}/{this.props.totalTargets}
+            {this.props.targetHits}
           </div>
           <div id='targetMisses'>
             <div className='gameHudLabel'>
-              Target misses
+              Targets missed
             </div>
             {this.props.targetMisses}
           </div>
@@ -64,7 +64,7 @@ class GameHud extends Component {
             {this.props.targetExpiration}ms
           </div>
           <div id='pauseButton' className={this.state.pauseButtonClass}>
-            <FontAwesomeIcon icon={faPauseCircle} size="3x" onClick={this.pause} />
+            <FontAwesomeIcon icon={faPauseCircle} size="2x" onClick={this.pause} />
           </div>
         </div>
     )

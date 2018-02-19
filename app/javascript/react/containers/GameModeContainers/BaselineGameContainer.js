@@ -34,7 +34,7 @@ class BaselineGame extends Component{
     this.resumeGame = this.resumeGame.bind(this)
     this.restartGame = this.restartGame.bind(this)
     this.saveTargetTime = this.saveTargetTime.bind(this)
-    this.convertMS = this.convertMS.bind(this)
+    this.newBest = this.newBest.bind(this)
 
     this.targetTimes = []
 
@@ -121,11 +121,21 @@ class BaselineGame extends Component{
       gameDuration: gameDuration,
       gameState: 'ended',
       fastestHit: fastestHit,
-      averageHit: averageHit
+      averageHit: averageHit,
+      newBest: this.newBest(gameDuration)
     })
   }
-  convertMS(milliseconds) {
-    
+  newBest(gameDuration){
+    if (document.getElementById('userInfo')) {
+    let oldBest = document.getElementById('baselineBest').innerHTML
+      if (gameDuration < parseInt(oldBest) || parseInt(oldBest) == 0 ){
+        return 'show'
+      } else {
+        return 'hide'
+      }
+    } else {
+      return 'hide'
+    }
   }
   render(){
     let startScreenClass, endScreenClass
@@ -166,20 +176,28 @@ class BaselineGame extends Component{
           gameState={this.state.gameState}
         />
         <div id='coreDisplayPanel' className='container'>
-          <div id='coreDisplayOverlay' className={overlayClass}>
+          <div id='gameOverlay' className={overlayClass}>
             <div className={startScreenClass}>
+              <div id='upperOverlay'>Baseline</div>
                 <FontAwesomeIcon id='exitButton' icon={faTimesCircle} size='4x' onClick={this.props.exitGame}/>
                 <FontAwesomeIcon id='playButton'  icon={faPlayCircle} size='8x' onClick={this.startGame}/>
             </div>
             <div className={this.state.pauseScreen}>
+              <div id='upperOverlay'>Paused</div>
                 <FontAwesomeIcon id='restartButton' icon={faRedoAlt} size='4x' onClick={this.restartGame}/>
                 <FontAwesomeIcon id='playButton'  icon={faPlayCircle} size='8x' onClick={this.resumeGame}/>
                 <FontAwesomeIcon id='exitButton' icon={faTimesCircle} size='4x' onClick={this.props.exitGame}/>
             </div>
             <div className={endScreenClass}>
-              <div id='endGameTime'>{this.convertMS(this.state.gameDuration)}</div>
-              <div id='endGameFastestHit'>{this.state.fastestHit}</div>
-              <div id='endGameAverageHit'>{this.state.averageHit}</div>
+              <div id='upperOverlay'>
+                <div id='personalBest' className={this.state.newBest}>New Best!</div>
+                <div id='endGameTime'>{this.state.gameDuration/1000}s</div>
+                <div id='endGameFastestHit'>{this.state.fastestHit}ms</div>
+                <div id='endGameAverageHit'>{this.state.averageHit}ms</div>
+                <div id='endGameTimeLabel'>Game Time</div>
+                <div id='endGameFastestHitLabel'>Fastest Hit</div>
+                <div id='endGameAverageHitLabel'>Average Hit</div>
+              </div>
                 <FontAwesomeIcon id='exitButton' icon={faTimesCircle} size='4x' onClick={this.props.exitGame}/>
                 <FontAwesomeIcon id='playButton'  icon={faRedoAlt} size='8x' onClick={this.restartGame}/>
             </div>

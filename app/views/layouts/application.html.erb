@@ -13,9 +13,10 @@
     <%- if current_user -%>
       <div id='userInfo' class="hide">
         <div id='userName'><%= current_user.user_name %></div>
-        <div id='userPhoto' class='hide'><%= current_user.profile_photo %></div>
+        <div id='userPhoto'><%= current_user.profile_photo %></div>
+        <div id='baselineBest'><%= current_user.fastest_baseline %></div>
+        <div id='challengeBest'><%= current_user.most_challenge_hits %></div>
       </div>
-
     <%- end -%>
   <%= yield %>
 

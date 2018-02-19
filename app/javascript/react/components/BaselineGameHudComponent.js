@@ -119,7 +119,7 @@ class BaselineGameHud extends Component {
             {this.state.time}
           </div>
           <div id='pauseButton' className={this.state.pauseButtonClass}>
-            <FontAwesomeIcon icon={faPauseCircle} size="3x" onClick={this.pause} />
+            <FontAwesomeIcon icon={faPauseCircle} size="2x" onClick={this.pause} />
           </div>
         </div>
     )
